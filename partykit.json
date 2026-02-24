@@ -2,9 +2,6 @@
   "$schema": "https://www.partykit.io/schema.json",
   "name": "deadsync",
   "main": "src/server/deadsync-server.ts",
-  "port": 1999,
-  "serve": {
-    "path": "dist",
-    "build": "npx vite build"
-  }
+  "port": 1977,
+  "compatibilityDate": "2026-02-24"
 }
