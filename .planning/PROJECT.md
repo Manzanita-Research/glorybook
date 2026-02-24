@@ -12,10 +12,13 @@ When the leader advances to the next song, every connected musician sees the cho
 
 ### Validated
 
-- ✓ Full typed protocol for client/server messages — existing
-- ✓ PartyKit server with join, song navigation, browse/go-live, setlist management, leader transfer, presence, state persistence — existing
-- ✓ React hook (useDeadSync) with connection management and all actions — existing
-- ✓ Default setlist with 8 Grateful Dead songs and real chord charts — existing
+(None yet — existing sync layer code is unreviewed and untested. Treat as reference/starting point, not validated.)
+
+**Existing code (unreviewed, may need rework):**
+- Protocol definition (`src/shared/protocol.ts`)
+- PartyKit server (`src/server/deadsync-server.ts`)
+- React hook (`src/client/use-deadsync.ts`)
+- Default setlist (`src/shared/default-setlist.ts`)
 
 ### Active
 
@@ -43,7 +46,7 @@ When the leader advances to the next song, every connected musician sees the cho
 
 ## Context
 
-The sync layer is fully built and tested — PartyKit server, React hook, typed protocol, demo setlist. What's missing is the entire React UI that connects to `useDeadSync`. An interactive prototype was built during the original design chat with the right UX patterns (dark theme, chord highlighting with gold/blue/purple colors, leader/follower role selection, GO LIVE banner) but it was a standalone artifact, not wired to the real sync layer.
+The sync layer was one-shotted by Opus in a previous chat — PartyKit server, React hook, typed protocol, demo setlist. None of it has been reviewed or run yet. It's a starting point, not a foundation — feel free to rework or replace any of it. What's missing is the entire React UI that connects to `useDeadSync`. An interactive prototype was built during the original design chat with the right UX patterns (dark theme, chord highlighting with gold/blue/purple colors, leader/follower role selection, GO LIVE banner) but it was a standalone artifact, not wired to the real sync layer.
 
 The app runs two ways: locally on a Mac mini with a travel router for gigs (zero cloud dependency), or deployed to Cloudflare edge via PartyKit for remote rehearsals. Session codes use Dead song names (e.g., `scarlet-042`, `ripple-817`).
 
