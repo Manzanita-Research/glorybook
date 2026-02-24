@@ -97,13 +97,44 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| — | — | — |
+| SYNC-01 | Phase 1 | Pending |
+| SYNC-02 | Phase 1 | Pending |
+| SYNC-03 | Phase 1 | Pending |
+| SYNC-04 | Phase 1 | Pending |
+| SYNC-05 | Phase 1 | Pending |
+| SHELL-01 | Phase 2 | Pending |
+| SHELL-02 | Phase 2 | Pending |
+| SHELL-03 | Phase 2 | Pending |
+| JOIN-01 | Phase 2 | Pending |
+| JOIN-02 | Phase 2 | Pending |
+| JOIN-03 | Phase 2 | Pending |
+| SONG-01 | Phase 3 | Pending |
+| SONG-02 | Phase 3 | Pending |
+| SONG-03 | Phase 3 | Pending |
+| SONG-04 | Phase 3 | Pending |
+| SONG-05 | Phase 3 | Pending |
+| LEAD-01 | Phase 4 | Pending |
+| LEAD-02 | Phase 4 | Pending |
+| LEAD-03 | Phase 4 | Pending |
+| LEAD-04 | Phase 4 | Pending |
+| LIST-01 | Phase 4 | Pending |
+| LIST-02 | Phase 4 | Pending |
+| LIST-03 | Phase 4 | Pending |
+| FOLL-01 | Phase 5 | Pending |
+| FOLL-02 | Phase 5 | Pending |
+| FOLL-03 | Phase 5 | Pending |
+| FOLL-04 | Phase 5 | Pending |
+| PRES-01 | Phase 5 | Pending |
+| PRES-02 | Phase 5 | Pending |
+| JOIN-04 | Phase 6 | Pending |
+| SESS-01 | Phase 6 | Pending |
+| SESS-02 | Phase 6 | Pending |
 
 **Coverage:**
 - v1 requirements: 27 total
-- Mapped to phases: 0
-- Unmapped: 27 ⚠️
+- Mapped to phases: 27
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-24*
-*Last updated: 2026-02-24 after initial definition*
+*Last updated: 2026-02-24 — traceability populated after roadmap creation*
