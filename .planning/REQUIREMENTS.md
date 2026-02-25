@@ -17,15 +17,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### App Shell
 
-- [ ] **SHELL-01**: User can load the app via Vite entry point (index.html, main.tsx, App.tsx)
-- [ ] **SHELL-02**: App renders with dark, stage-friendly theme using Tailwind v4
-- [ ] **SHELL-03**: App is usable on iPad Safari with 44px minimum tap targets
+- [x] **SHELL-01**: User can load the app via Vite entry point (index.html, main.tsx, App.tsx)
+- [x] **SHELL-02**: App renders with dark, stage-friendly theme using Tailwind v4
+- [x] **SHELL-03**: App is usable on iPad Safari with 44px minimum tap targets
 
 ### Join
 
-- [ ] **JOIN-01**: User can enter their name on a join screen
-- [ ] **JOIN-02**: User can choose leader or follower role
-- [ ] **JOIN-03**: User can enter a session code to join
+- [x] **JOIN-01**: User can enter their name on a join screen
+- [x] **JOIN-02**: User can choose leader or follower role
+- [x] **JOIN-03**: User can enter a session code to join
 - [ ] **JOIN-04**: User can scan a QR code to join a session
 
 ### Song Viewer
@@ -102,12 +102,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SYNC-03 | Phase 1 | Done |
 | SYNC-04 | Phase 1 | Done |
 | SYNC-05 | Phase 1 | Done |
-| SHELL-01 | Phase 2 | Pending |
-| SHELL-02 | Phase 2 | Pending |
-| SHELL-03 | Phase 2 | Pending |
-| JOIN-01 | Phase 2 | Pending |
-| JOIN-02 | Phase 2 | Pending |
-| JOIN-03 | Phase 2 | Pending |
+| SHELL-01 | Phase 2 | Done |
+| SHELL-02 | Phase 2 | Done |
+| SHELL-03 | Phase 2 | Done |
+| JOIN-01 | Phase 2 | Done |
+| JOIN-02 | Phase 2 | Done |
+| JOIN-03 | Phase 2 | Done |
 | SONG-01 | Phase 3 | Pending |
 | SONG-02 | Phase 3 | Pending |
 | SONG-03 | Phase 3 | Pending |

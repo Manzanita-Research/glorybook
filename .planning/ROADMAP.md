@@ -13,7 +13,7 @@ The sync layer was one-shotted and has known bugs — stale closures, storage li
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Sync Layer Hardening** - Fix the existing server and hook bugs before building UI on top of them (completed 2026-02-24)
-- [ ] **Phase 2: App Shell** - Entry point, context architecture, join screen, and iOS reliability
+- [x] **Phase 2: App Shell** - Entry point, context architecture, join screen, and iOS reliability (completed 2026-02-24)
 - [ ] **Phase 3: Song Rendering** - Chord chart display with gold/blue/purple highlighting
 - [ ] **Phase 4: Navigation and Leader Controls** - Full sync loop exercised end-to-end
 - [ ] **Phase 5: Follower UX** - GO LIVE snap-back, presence indicators, and connection status
@@ -49,8 +49,8 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. All interactive elements are reachable with a finger tap — no tiny touch targets
 **Plans**: 2 plans
 Plans:
-- [ ] 02-01-PLAN.md — Vite entry point, React 19 + Tailwind v4 setup, PartyKit serve config
-- [ ] 02-02-PLAN.md — Join screen, session screen, theme toggle, iPad touch targets
+- [x] 02-01-PLAN.md — Vite entry point, React 19 + Tailwind v4 setup, PartyKit serve config
+- [x] 02-02-PLAN.md — Join screen, session screen, theme toggle, iPad touch targets
 
 ### Phase 3: Song Rendering
 **Goal**: The current song's chord chart is on screen and readable under stage lights
@@ -109,7 +109,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Sync Layer Hardening | 4/4 | Complete | 2026-02-24 |
-| 2. App Shell | 0/TBD | Not started | - |
+| 2. App Shell | 2/2 | Complete | 2026-02-24 |
 | 3. Song Rendering | 0/TBD | Not started | - |
 | 4. Navigation and Leader Controls | 0/TBD | Not started | - |
 | 5. Follower UX | 0/TBD | Not started | - |
