@@ -43,6 +43,10 @@ Progress: [█████████░] 93%
 
 ## Accumulated Context
 
+### Roadmap Evolution
+
+- Phase 8 added: clean up tech debt
+
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table.
