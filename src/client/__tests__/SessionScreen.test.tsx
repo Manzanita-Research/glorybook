@@ -7,13 +7,14 @@ import { SessionScreen } from "../components/SessionScreen";
 const mockJoin = vi.fn();
 const mockSetSong = vi.fn();
 const mockBrowse = vi.fn();
+const mockTransferLead = vi.fn();
 const mockActions = {
   join: mockJoin,
   setSong: mockSetSong,
   browse: mockBrowse,
   goLive: vi.fn(),
   setSetlist: vi.fn(),
-  transferLead: vi.fn(),
+  transferLead: mockTransferLead,
   disconnect: vi.fn(),
 };
 
@@ -57,7 +58,7 @@ describe("SessionScreen", () => {
     vi.clearAllMocks();
     mockReturnValue = {
       ...defaultMockReturn,
-      actions: { ...mockActions, join: mockJoin, setSong: mockSetSong, browse: mockBrowse },
+      actions: { ...mockActions, join: mockJoin, setSong: mockSetSong, browse: mockBrowse, transferLead: mockTransferLead },
     };
   });
 
@@ -114,7 +115,7 @@ describe("SessionScreen", () => {
     // Song title appears in both SongHeader and NavigationBar
     const titles = screen.getAllByText("Scarlet Begonias");
     expect(titles.length).toBeGreaterThanOrEqual(2);
-    // Position appears in both SongHeader ("1 of 3") and NavigationBar ("1 of 3")
+    // Position appears in both SongHeader and NavigationBar
     const positions = screen.getAllByText("1 of 3");
     expect(positions.length).toBeGreaterThanOrEqual(1);
   });
@@ -139,5 +140,40 @@ describe("SessionScreen", () => {
     const user = userEvent.setup();
     await user.click(screen.getByLabelText("Next song"));
     expect(mockBrowse).toHaveBeenCalledWith(1);
+  });
+
+  // --- Setlist Drawer tests ---
+
+  it("renders hamburger button in header", () => {
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    expect(screen.getByLabelText("Open setlist")).toBeInTheDocument();
+  });
+
+  it("opens setlist drawer when hamburger is clicked", async () => {
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    const user = userEvent.setup();
+    await user.click(screen.getByLabelText("Open setlist"));
+    // Drawer should now show the Setlist header
+    expect(screen.getByText("Setlist")).toBeInTheDocument();
+  });
+
+  it("drawer song selection calls actions.browse", async () => {
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    const user = userEvent.setup();
+    // Open drawer
+    await user.click(screen.getByLabelText("Open setlist"));
+    // The drawer shows songs — click the third song (in drawer list)
+    const drawerDialog = screen.getByRole("dialog", { name: "Setlist" });
+    const estimatedInDrawer = drawerDialog.querySelector("li:nth-child(3)");
+    if (estimatedInDrawer) await user.click(estimatedInDrawer);
+    expect(mockBrowse).toHaveBeenCalledWith(2);
+  });
+
+  // --- TransferMenu tests ---
+
+  it("does not render TransferMenu for followers", () => {
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    // TransferMenu dialog should not be present
+    expect(screen.queryByRole("dialog", { name: "Transfer Leadership" })).not.toBeInTheDocument();
   });
 });
