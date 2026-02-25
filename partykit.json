@@ -3,5 +3,9 @@
   "name": "deadsync",
   "main": "src/server/deadsync-server.ts",
   "port": 1977,
-  "compatibilityDate": "2026-02-24"
+  "compatibilityDate": "2026-02-24",
+  "serve": {
+    "path": "dist",
+    "singlePageApp": true
+  }
 }

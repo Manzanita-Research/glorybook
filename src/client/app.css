@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Warm-dark surface colors */
+  --color-surface: #1a1410;
+  --color-surface-raised: #241e18;
+  --color-surface-overlay: #2e2620;
+
+  /* Text colors */
+  --color-text-primary: #f5f0e8;
+  --color-text-secondary: #a89e8c;
+  --color-text-muted: #6b6155;
+
+  /* Accent colors — chord highlighting palette used app-wide */
+  --color-accent-gold: #d4a843;
+  --color-accent-blue: #5b8fb9;
+  --color-accent-purple: #9b72b0;
+
+  /* Interactive — gold as primary action color */
+  --color-interactive: #d4a843;
+  --color-interactive-hover: #e0b94f;
+  --color-interactive-active: #c49a3a;
+
+  /* Status */
+  --color-status-connected: #5a9a5a;
+  --color-status-disconnected: #c45a4a;
+  --color-status-warning: #d4a843;
+
+  /* Border */
+  --color-border: #3a3228;
+  --color-border-focus: #d4a843;
+}
+
+/* OLED theme override — true black backgrounds */
+.oled {
+  --color-surface: #000000;
+  --color-surface-raised: #0a0a0a;
+  --color-surface-overlay: #141414;
+  --color-border: #1a1a1a;
+}
+
+/* Safe area padding for iPad */
+.safe-area-padding {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Song transition: slide in from right on auto-follow */
+@keyframes slide-in-left {
+  from {
+    transform: translateX(30%);
+    opacity: 0.3;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Border pulse when leader advances while follower is browsing */
+@keyframes ring-pulse {
+  0%, 100% { box-shadow: inset 0 0 0 4px var(--color-accent-gold); }
+  50% { box-shadow: inset 0 0 0 6px var(--color-accent-gold); }
+}
+
+/* Banner text pulse when leader advances while follower is browsing */
+@keyframes pulse-once {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}

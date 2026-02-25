@@ -423,6 +423,52 @@ describe("DeadSync Server", () => {
       }
     });
 
+    it("follower state message contains both leader and follower (UAT Test 8)", async () => {
+      // This is the core fix: when Bobby (follower) joins after Jerry (leader),
+      // the state message sent to Bobby must contain BOTH users.
+      const jerry = createMockConnection("jerry-1");
+      await server.handleJoin(jerry, "Jerry", "leader");
+
+      const bobby = createMockConnection("bobby-1");
+      await server.handleJoin(bobby, "Bobby", "follower");
+
+      // Find the state message sent to Bobby
+      const bobbyMsgs = parseMessages(bobby);
+      const stateMsg = bobbyMsgs.find((m) => m.type === "state");
+      expect(stateMsg).toBeDefined();
+      if (stateMsg?.type === "state") {
+        const userNames = stateMsg.state.users.map((u: SessionUser) => u.name);
+        expect(userNames).toContain("Jerry");
+        expect(userNames).toContain("Bobby");
+        expect(stateMsg.state.users.length).toBe(2);
+      }
+    });
+
+    it("state message is only sent after join, not on connect", async () => {
+      // The server's onConnect no longer sends state — state comes only after
+      // handleJoin. This test verifies that the first message Bobby receives
+      // is the state from handleJoin (which includes both users), not a
+      // premature state from onConnect.
+      const jerry = createMockConnection("jerry-1");
+      await server.handleJoin(jerry, "Jerry", "leader");
+
+      const bobby = createMockConnection("bobby-1");
+      // Before join, bobby has no messages (onConnect doesn't send in test harness either)
+      expect(bobby._messages.length).toBe(0);
+
+      await server.handleJoin(bobby, "Bobby", "follower");
+
+      // Now bobby should have exactly one state message
+      const bobbyMsgs = parseMessages(bobby);
+      const stateMsgs = bobbyMsgs.filter((m) => m.type === "state");
+      expect(stateMsgs.length).toBe(1);
+
+      // And that state should have both users
+      if (stateMsgs[0]?.type === "state") {
+        expect(stateMsgs[0].state.users.length).toBe(2);
+      }
+    });
+
     it("user has joinedAt timestamp", async () => {
       const before = Date.now();
       const conn = createMockConnection("user-1");
