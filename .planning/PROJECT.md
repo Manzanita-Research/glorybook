@@ -26,6 +26,8 @@ When the leader advances to the next song, every connected musician sees the cho
 - [ ] Adjustable font size for different reading distances
 - [ ] Graceful "lost connection" state with auto-recovery UI
 - [ ] In-app setlist editing
+- [ ] Songbook import — parse chord charts from various sources into Song format
+- [ ] Touch-friendly refinements for iPad (larger tap targets, swipe gestures)
 
 ### Out of Scope
 
