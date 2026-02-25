@@ -44,9 +44,9 @@ describe("SongHeader", () => {
     expect(screen.queryByText("Capo 2 for studio key")).not.toBeInTheDocument();
   });
 
-  it("renders Key: label", () => {
+  it("renders Key label", () => {
     render(<SongHeader song={mockSong} position={1} total={8} />);
-    expect(screen.getByText("Key:")).toBeInTheDocument();
+    expect(screen.getByText("Key")).toBeInTheDocument();
   });
 
   it("key value has accent-gold styling", () => {

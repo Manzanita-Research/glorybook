@@ -51,7 +51,7 @@ export function SetlistDrawer({
       >
         {/* Drawer header */}
         <div className="px-4 py-3 border-b border-border shrink-0">
-          <h3 className="text-text-primary font-bold text-lg">Setlist</h3>
+          <h3 className="text-text-primary font-bold text-lg font-display">Setlist</h3>
         </div>
 
         {/* Song list */}

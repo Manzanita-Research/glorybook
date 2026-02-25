@@ -16,7 +16,7 @@ export function GoLiveBanner({ onGoLive, pulse }: GoLiveBannerProps) {
     <button
       onClick={onGoLive}
       className={`w-full py-3 bg-accent-gold text-surface font-bold text-center
-        uppercase tracking-wider text-sm shrink-0
+        uppercase tracking-[0.2em] text-sm shrink-0 font-mono
         ${pulse ? "animate-[pulse-once_0.6s_ease-in-out]" : ""}`}
       aria-label="Go live — return to current song"
     >
