@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Navigation and Leader Controls** - Full sync loop exercised end-to-end (completed 2026-02-25)
 - [x] **Phase 5: Follower UX** - GO LIVE snap-back, presence indicators, and connection status (completed 2026-02-25)
 - [ ] **Phase 6: Session Entry and Polish** - QR codes, Dead song session codes, iPad touch polish
-- [ ] **Phase 7: Leader Disconnect UI** - Surface leader grace period to followers, close SYNC-02 gap
+- [x] **Phase 7: Leader Disconnect UI** - Surface leader grace period to followers, close SYNC-02 gap (completed 2026-02-25)
 
 ## Phase Details
 
@@ -138,7 +138,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 4. Navigation and Leader Controls | 2/2 | Complete | 2026-02-25 |
 | 5. Follower UX | 2/2 | Complete    | 2026-02-25 |
 | 6. Session Entry and Polish | 0/TBD | Not started | - |
-| 7. Leader Disconnect UI | 0/1 | Not started | - |
+| 7. Leader Disconnect UI | 0/1 | Complete    | 2026-02-25 |
 
 ---
 *Roadmap created: 2026-02-24*
