@@ -38,9 +38,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Leader Controls
 
-- [ ] **LEAD-01**: Leader can advance to the next song with one tap
-- [ ] **LEAD-02**: Leader can go back to the previous song with one tap
-- [ ] **LEAD-03**: Leader's role is clearly indicated on screen
+- [x] **LEAD-01**: Leader can advance to the next song with one tap
+- [x] **LEAD-02**: Leader can go back to the previous song with one tap
+- [x] **LEAD-03**: Leader's role is clearly indicated on screen
 - [ ] **LEAD-04**: Leader can transfer leadership to another connected user
 
 ### Follower UX
@@ -113,9 +113,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SONG-03 | Phase 3 | Complete |
 | SONG-04 | Phase 3 | Complete |
 | SONG-05 | Phase 3 | Complete |
-| LEAD-01 | Phase 4 | Pending |
-| LEAD-02 | Phase 4 | Pending |
-| LEAD-03 | Phase 4 | Pending |
+| LEAD-01 | Phase 4 | Complete |
+| LEAD-02 | Phase 4 | Complete |
+| LEAD-03 | Phase 4 | Complete |
 | LEAD-04 | Phase 4 | Pending |
 | LIST-01 | Phase 4 | Pending |
 | LIST-02 | Phase 4 | Pending |
