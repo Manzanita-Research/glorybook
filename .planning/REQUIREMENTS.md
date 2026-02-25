@@ -45,18 +45,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Follower UX
 
-- [ ] **FOLL-01**: Follower automatically sees the song the leader navigates to
-- [ ] **FOLL-02**: Follower can browse to a different song independently
-- [ ] **FOLL-03**: Follower sees a prominent "GO LIVE" banner when browsing away from the live song
-- [ ] **FOLL-04**: Follower can tap "GO LIVE" to snap back to the leader's current song
+- [x] **FOLL-01**: Follower automatically sees the song the leader navigates to
+- [x] **FOLL-02**: Follower can browse to a different song independently
+- [x] **FOLL-03**: Follower sees a prominent "GO LIVE" banner when browsing away from the live song
+- [x] **FOLL-04**: Follower can tap "GO LIVE" to snap back to the leader's current song
 
 ### Setlist & Presence
 
 - [x] **LIST-01**: User can see the full setlist in a sidebar
 - [x] **LIST-02**: Current live song is highlighted in the setlist
 - [x] **LIST-03**: User can tap a song in the sidebar to browse to it
-- [ ] **PRES-01**: User can see who is connected to the session
-- [ ] **PRES-02**: User can see who is live vs. browsing a different song
+- [x] **PRES-01**: User can see who is connected to the session
+- [x] **PRES-02**: User can see who is live vs. browsing a different song
 
 ### Session Entry
 
@@ -120,12 +120,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LIST-01 | Phase 4 | Complete |
 | LIST-02 | Phase 4 | Complete |
 | LIST-03 | Phase 4 | Complete |
-| FOLL-01 | Phase 5 | Pending |
-| FOLL-02 | Phase 5 | Pending |
-| FOLL-03 | Phase 5 | Pending |
-| FOLL-04 | Phase 5 | Pending |
-| PRES-01 | Phase 5 | Pending |
-| PRES-02 | Phase 5 | Pending |
+| FOLL-01 | Phase 5 | Complete |
+| FOLL-02 | Phase 5 | Complete |
+| FOLL-03 | Phase 5 | Complete |
+| FOLL-04 | Phase 5 | Complete |
+| PRES-01 | Phase 5 | Complete |
+| PRES-02 | Phase 5 | Complete |
 | JOIN-04 | Phase 6 | Pending |
 | SESS-01 | Phase 6 | Pending |
 | SESS-02 | Phase 6 | Pending |

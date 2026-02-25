@@ -10,16 +10,16 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 5 of 6 (Follower UX) — COMPLETE
-Plan: 2 of 2 in current phase
-Status: Phase 5 complete
-Last activity: 2026-02-25 — Phase 5 complete
+Plan: 3 of 3 in current phase
+Status: Phase 5 complete (gap closure plan 03 done)
+Last activity: 2026-02-25 — Plan 05-03 complete (presence fix)
 
 Progress: [████████░░] 83%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: ~7 minutes
 - Total execution time: ~37 minutes
 
@@ -38,6 +38,7 @@ Progress: [████████░░] 83%
 | Phase 03-song-rendering P02 | 8 | 2 tasks | 8 files |
 | Phase 04 P01 | 2min | 2 tasks | 4 files |
 | Phase 04 P02 | 2min | 2 tasks | 6 files |
+| Phase 05 P03 | 1min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -58,6 +59,7 @@ Recent decisions affecting current work:
 - [Phase 03-song-rendering]: useMemo on song.chart for tokenization — pure function, memoize once per song change
 - [Phase 03-song-rendering]: flex-1 min-h-0 wrapper required for overflow-y-auto to work inside flex child in ChordChart
 - [Phase 03-song-rendering]: User list removed from SessionScreen for Phase 3 — returns in Phase 5 (PRES-01/02) with proper presence indicators
+- [Phase 05]: Removed state message from onConnect — handleJoin is the sole source of initial state, eliminates race condition
 
 ### Pending Todos
 
@@ -74,5 +76,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed Phase 5 (Follower UX) — all 6 requirements met
-Resume file: .planning/phases/05-follower-ux/05-02-SUMMARY.md
+Stopped at: Completed 05-03-PLAN.md (presence list fix)
+Resume file: .planning/phases/05-follower-ux/05-03-SUMMARY.md
