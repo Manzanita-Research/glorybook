@@ -26,6 +26,10 @@ Decisions logged in PROJECT.md Key Decisions table. Full history in milestones/v
 - Manual smoke test: partykit dev + two browser tabs syncing
 - Test hibernation + storage sharding against actual Cloudflare deploy
 
+### Roadmap Evolution
+
+- Phase 1 added: visual polish
+
 ### Blockers/Concerns
 
 (None — milestone complete)
