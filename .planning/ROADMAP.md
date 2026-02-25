@@ -47,7 +47,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. After joining, the app shows a connected state (not a loading spinner or error)
   4. Keeping the iPad screen on with the app open does not drop the WebSocket connection
   5. All interactive elements are reachable with a finger tap — no tiny touch targets
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 02-01-PLAN.md — Vite entry point, React 19 + Tailwind v4 setup, PartyKit serve config
+- [ ] 02-02-PLAN.md — Join screen, session screen, theme toggle, iPad touch targets
 
 ### Phase 3: Song Rendering
 **Goal**: The current song's chord chart is on screen and readable under stage lights
