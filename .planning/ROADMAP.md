@@ -35,6 +35,16 @@ Full details: [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
 | 7. Leader Disconnect UI | v1.0 | 1/1 | Complete | 2026-02-25 |
 | 8. Clean Up Tech Debt | v1.0 | 2/2 | Complete | 2026-02-25 |
 
+### Phase 1: visual polish
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 0
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 1 to break down)
+
 ---
 *Roadmap created: 2026-02-24*
 *v1.0 shipped: 2026-02-25*
