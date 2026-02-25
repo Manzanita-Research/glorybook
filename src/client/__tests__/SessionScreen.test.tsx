@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SessionScreen } from "../components/SessionScreen";
+import type { UseDeadSyncReturn } from "../use-deadsync";
 
 // Mock useDeadSync hook
 const mockJoin = vi.fn();
@@ -24,7 +25,7 @@ const testSongs = [
   { id: "3", title: "Estimated Prophet", key: "E", tempo: "Moderate", chart: "[E]Estimated" },
 ];
 
-const defaultMockReturn = {
+const defaultMockReturn: UseDeadSyncReturn = {
   connected: true,
   connectionId: "conn-1",
   sessionState: {

@@ -41,7 +41,7 @@ interface LeaderDisconnectedInfo {
   graceSeconds: number;
 }
 
-interface UseDeadSyncReturn {
+export interface UseDeadSyncReturn {
   // Connection state
   connected: boolean;
   connectionId: string | null;
