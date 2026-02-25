@@ -26,7 +26,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **JOIN-01**: User can enter their name on a join screen
 - [x] **JOIN-02**: User can choose leader or follower role
 - [x] **JOIN-03**: User can enter a session code to join
-- [ ] **JOIN-04**: User can scan a QR code to join a session
+- [x] **JOIN-04**: User can scan a QR code to join a session
 
 ### Song Viewer
 
@@ -60,8 +60,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Session Entry
 
-- [ ] **SESS-01**: Leader can display a QR code that others scan to join
-- [ ] **SESS-02**: Session codes use Dead song names (e.g., scarlet-042, ripple-817)
+- [x] **SESS-01**: Leader can display a QR code that others scan to join
+- [x] **SESS-02**: Session codes use Dead song names (e.g., scarlet-042, ripple-817)
 
 ## v2 Requirements
 
@@ -126,15 +126,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOLL-04 | Phase 5 | Complete |
 | PRES-01 | Phase 5 | Complete |
 | PRES-02 | Phase 5 | Complete |
-| JOIN-04 | Phase 6 | Pending |
-| SESS-01 | Phase 6 | Pending |
-| SESS-02 | Phase 6 | Pending |
+| JOIN-04 | Phase 6 | Complete |
+| SESS-01 | Phase 6 | Complete |
+| SESS-02 | Phase 6 | Complete |
 
 **Coverage:**
 - v1 requirements: 27 total
 - Mapped to phases: 27
-- Complete: 26
-- Pending: 1 (SYNC-02 → Phase 7)
+- Complete: 27
+- Pending: 0
 - Unmapped: 0
 
 ---
