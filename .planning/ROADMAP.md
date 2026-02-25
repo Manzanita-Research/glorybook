@@ -95,7 +95,10 @@ Plans:
   4. Tapping the banner snaps the follower back to the leader's current song
   5. Every connected musician can see who else is in the session
   6. The sidebar or presence bar shows who is on the live song vs. browsing elsewhere
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 05-01-PLAN.md — GO LIVE banner, browse-away border, pulse effects, slide-left animation
+- [ ] 05-02-PLAN.md — Presence indicators in setlist drawer
 
 ### Phase 6: Session Entry and Polish
 **Goal**: The app is ready for a first gig — QR join works, session codes are on-brand, iPad use is smooth
@@ -118,7 +121,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. App Shell | 2/2 | Complete | 2026-02-24 |
 | 3. Song Rendering | 2/2 | Complete    | 2026-02-25 |
 | 4. Navigation and Leader Controls | 0/2 | Planned | - |
-| 5. Follower UX | 0/TBD | Not started | - |
+| 5. Follower UX | 0/2 | Planned | - |
 | 6. Session Entry and Polish | 0/TBD | Not started | - |
 
 ---
