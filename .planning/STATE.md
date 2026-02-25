@@ -5,33 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** When the leader advances to the next song, every connected musician sees the chord chart instantly — and anyone who browsed ahead can snap back to live with one tap.
-**Current focus:** Phase 1 — Sync Layer Hardening
+**Current focus:** Phase 2 — App Shell
 
 ## Current Position
 
-Phase: 1 of 6 (Sync Layer Hardening)
+Phase: 2 of 6 (App Shell)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-02-24 — Roadmap created
+Last activity: 2026-02-24 — Phase 1 complete
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 17%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: 0 hours
+- Total plans completed: 4
+- Average duration: ~8 minutes
+- Total execution time: ~35 minutes
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 1. Sync Layer Hardening | 4 | ~35 min | ~8 min |
 
 **Recent Trend:**
-- Last 5 plans: —
-- Trend: —
+- Last 5 plans: 01-01, 01-02, 01-03, 01-04
+- Trend: Consistent
 
 *Updated after each plan completion*
 
@@ -45,18 +45,26 @@ Recent decisions affecting current work:
 - Pre-roadmap: Sync layer has 5 known bugs — stale closure, 128 KiB storage limit, missing hibernation, eager leader promotion, iOS Safari WebSocket teardown. Fix these in Phase 1 before building UI.
 - Pre-roadmap: React 19, Tailwind v4, partysocket 1.1.16 — upgrade all three from existing versions.
 - Pre-roadmap: Custom chord tokenizer (not ChordSheetJS HTML formatter) — parses `[G]` bracket notation into typed tokens.
+- Phase 1: Protocol redesigned from scratch with leader-disconnected message, reconnecting flag on join, joinedAt on SessionUser.
+- Phase 1: Storage sharded into meta + setlist-info + song:N keys. No single value exceeds 128 KiB.
+- Phase 1: Leader grace period uses PartyKit alarm (30 seconds). Reconnecting leader reclaims by name match.
+- Phase 1: Stale closure fixed with useRef pattern. React 19 upgrade deferred to Phase 2.
+- Phase 1: Wake Lock utility created but real testing deferred to Phase 2 (needs UI).
 
 ### Pending Todos
 
-None yet.
+- Upgrade React 18 -> 19, add Tailwind v4 (Phase 2)
+- Upgrade partysocket 1.0.1 -> 1.1.16 (Phase 2)
+- Manual smoke test: partykit dev + two browser tabs syncing (Phase 2, needs UI)
+- Test hibernation + storage sharding against actual Cloudflare deploy (future)
 
 ### Blockers/Concerns
 
-- Phase 1: Hibernation and storage sharding fixes must be tested against an actual Cloudflare deploy, not just local `partykit dev` — local has no limits and no hibernation.
+- Phase 1 concern resolved: Hibernation and storage sharding implemented, but local `partykit dev` doesn't hibernate. Real Cloudflare testing is deferred.
 - Phase 6: Session code word list (Dead song names) needs to be built — the format is decided but the list does not exist yet.
 
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Roadmap created, requirements mapped, STATE.md initialized
-Resume file: None
+Stopped at: Phase 2 context gathered, ready to plan
+Resume file: .planning/phases/02-app-shell/02-CONTEXT.md
