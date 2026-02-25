@@ -1,10 +1,40 @@
+import { useState, useEffect } from "react";
+import { JoinScreen } from "./components/JoinScreen";
+import { SessionScreen } from "./components/SessionScreen";
+import { ThemeToggle } from "./components/ThemeToggle";
+import { applyTheme, getTheme } from "./lib/theme";
+import type { UserRole } from "../shared/protocol";
+
+interface JoinConfig {
+  name: string;
+  role: UserRole;
+  code: string;
+}
+
 export function App() {
+  const [joinConfig, setJoinConfig] = useState<JoinConfig | null>(null);
+
+  // Apply saved theme on mount
+  useEffect(() => {
+    applyTheme(getTheme());
+  }, []);
+
+  function handleJoin(name: string, role: UserRole, code: string) {
+    setJoinConfig({ name, role, code });
+  }
+
   return (
-    <div className="min-h-dvh bg-surface text-text-primary safe-area-padding flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-accent-gold tracking-tight">Glory</h1>
-        <p className="mt-2 text-text-secondary text-lg">soar.</p>
-      </div>
-    </div>
+    <>
+      <ThemeToggle />
+      {joinConfig ? (
+        <SessionScreen
+          name={joinConfig.name}
+          role={joinConfig.role}
+          code={joinConfig.code}
+        />
+      ) : (
+        <JoinScreen onJoin={handleJoin} />
+      )}
+    </>
   );
 }
