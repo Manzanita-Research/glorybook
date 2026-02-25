@@ -225,6 +225,41 @@ describe("SessionScreen", () => {
     expect(mockGoLive).toHaveBeenCalledOnce();
   });
 
+  // --- Leader disconnect banner tests ---
+
+  it("shows leader disconnect banner when leaderDisconnected is set and user is follower", () => {
+    mockReturnValue = {
+      ...defaultMockReturn,
+      leaderDisconnected: { graceSeconds: 30 },
+      isLeader: false,
+      actions: mockActions,
+    };
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    expect(screen.getByText("Leader reconnecting...")).toBeInTheDocument();
+  });
+
+  it("does NOT show leader disconnect banner when user is leader", () => {
+    mockReturnValue = {
+      ...defaultMockReturn,
+      leaderDisconnected: { graceSeconds: 30 },
+      isLeader: true,
+      actions: mockActions,
+    };
+    render(<SessionScreen name="Jerry" role="leader" code="scarlet-042" />);
+    expect(screen.queryByText("Leader reconnecting...")).not.toBeInTheDocument();
+  });
+
+  it("does NOT show leader disconnect banner when leaderDisconnected is null", () => {
+    mockReturnValue = {
+      ...defaultMockReturn,
+      leaderDisconnected: null,
+      isLeader: false,
+      actions: mockActions,
+    };
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    expect(screen.queryByText("Leader reconnecting...")).not.toBeInTheDocument();
+  });
+
   // --- Presence in drawer tests ---
 
   it("passes users to SetlistDrawer for presence display", async () => {
