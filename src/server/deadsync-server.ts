@@ -173,10 +173,12 @@ export default class DeadSyncServer implements Party.Server {
 
   // --- Connection events ---
 
-  async onConnect(connection: Party.Connection) {
-    // Send current state to the new connection
-    const state = await this.getState();
-    this.send(connection, { type: "state", state });
+  async onConnect(_connection: Party.Connection) {
+    // No state sent here — the client will send a `join` message
+    // immediately after connecting, and handleJoin sends the full
+    // state after adding the user to the users Map. Sending state
+    // here would be premature (the user isn't in the Map yet) and
+    // could race with the handleJoin state message.
   }
 
   async onClose(connection: Party.Connection) {
