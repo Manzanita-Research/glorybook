@@ -45,7 +45,7 @@ export function NavigationBar({
 
       {/* Song title + position */}
       <div className="min-w-0 flex-1 text-center px-2">
-        <p className="text-text-primary font-medium truncate">{songTitle}</p>
+        <p className="text-text-primary font-medium truncate font-display">{songTitle}</p>
         <p className="text-text-secondary text-sm">
           {position} of {total}
         </p>

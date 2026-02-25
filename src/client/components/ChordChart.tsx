@@ -32,7 +32,7 @@ export function ChordChart({ song, position, total, animateTransition }: ChordCh
         return (
           <div
             key={i}
-            className="font-bold text-accent-blue uppercase mt-6 mb-2 tracking-wide"
+            className="font-bold text-accent-blue uppercase mt-6 mb-2 tracking-[0.2em] font-mono text-sm"
           >
             {line.raw.trim()}
           </div>

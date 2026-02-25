@@ -1,8 +1,20 @@
 @import "tailwindcss";
 
+/* Commit Mono — custom Manzanita build */
+@font-face {
+  font-family: 'Commit Mono';
+  src: url('/fonts/CommitMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  /* Brand typography */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-mono: 'Commit Mono', monospace;
+
   /* Warm-dark surface colors */
   --color-surface: #1a1410;
   --color-surface-raised: #241e18;
@@ -39,6 +51,42 @@
   --color-surface-raised: #0a0a0a;
   --color-surface-overlay: #141414;
   --color-border: #1a1a1a;
+}
+
+/* Fraunces variable font — soft wonky display */
+.font-display {
+  font-variation-settings: 'WONK' 1, 'SOFT' 100;
+}
+
+/* Commit Mono — Manzanita custom build OpenType features */
+.font-mono {
+  font-feature-settings:
+    'cv01' 1, 'cv03' 1, 'cv04' 1, 'cv06' 1, 'cv11' 1,
+    'ss01' 1, 'ss02' 1, 'ss03' 1, 'ss04' 1, 'ss05' 1;
+}
+
+/* Brand selection color */
+::selection {
+  background-color: #6b3a2a;
+  color: #f5f0e8;
+}
+
+/* Film grain — scoped overlay for specific sections */
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  z-index: 1;
 }
 
 /* Safe area padding for iPad */

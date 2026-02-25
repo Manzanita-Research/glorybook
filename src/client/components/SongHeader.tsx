@@ -18,7 +18,7 @@ export function SongHeader({ song, position, total }: SongHeaderProps) {
     <div className="bg-surface border-b border-border px-4 py-3 z-10">
       {/* Row 1: title + position */}
       <div className="flex items-baseline justify-between gap-2">
-        <h2 className="text-2xl font-bold text-text-primary truncate">
+        <h2 className="text-2xl font-bold text-text-primary truncate font-display">
           {song.title}
         </h2>
         <span className="text-text-secondary text-sm shrink-0">
@@ -28,8 +28,8 @@ export function SongHeader({ song, position, total }: SongHeaderProps) {
 
       {/* Row 2: key + tempo */}
       <div className="flex gap-4 text-sm text-text-secondary mt-0.5">
-        <span>
-          Key:{" "}
+        <span className="font-mono">
+          <span className="text-xs uppercase tracking-[0.2em]">Key</span>{" "}
           <span className="text-accent-gold font-medium">{song.key}</span>
         </span>
         <span>{song.tempo}</span>

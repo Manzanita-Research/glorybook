@@ -19,7 +19,7 @@ interface PresenceListProps {
 export function PresenceList({ users, leaderId }: PresenceListProps) {
   return (
     <div className="px-4 py-3 border-t border-border shrink-0">
-      <h4 className="text-text-muted text-xs uppercase tracking-wider mb-2">
+      <h4 className="text-text-muted text-xs uppercase tracking-[0.2em] font-mono mb-2">
         Connected
       </h4>
       <ul className="space-y-1">

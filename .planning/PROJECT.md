@@ -20,6 +20,7 @@ When the leader advances to the next song, every connected musician sees the cho
 - ✓ QR code session sharing with Dead song name codes — v1.0
 - ✓ Leader disconnect banner for followers — v1.0
 - ✓ Zero TypeScript errors, clean imports, consistent docs — v1.0
+- ✓ Brand typography (Fraunces display, Commit Mono, uppercase tracked labels) — v1.1
 
 ### Active
 
@@ -44,8 +45,9 @@ When the leader advances to the next song, every connected musician sees the cho
 
 ## Context
 
-Shipped v1.0 with 6,192 LOC TypeScript across 122 files. 208 tests passing.
+Shipped v1.1 with 5,435 LOC TypeScript across 122 files. 208 tests passing.
 Tech stack: PartyKit, React 19, Tailwind v4, Vite 6, Bun, TypeScript.
+Typography: Fraunces (display), Commit Mono (monospace), both with full variable/OpenType features.
 
 The app runs two ways: locally on a Mac mini with a travel router for gigs (zero cloud dependency), or deployed to Cloudflare edge via PartyKit for remote rehearsals. Session codes use Dead song names (e.g., `scarlet-042`, `ripple-817`).
 
@@ -80,6 +82,9 @@ Known tech debt (4 items):
 | Sharded storage (meta + setlist-info + song:N) | No single value exceeds 128 KiB Cloudflare limit | ✓ Good |
 | Leader grace period via PartyKit alarm | 30-second window for reconnect before promoting new leader | ✓ Good |
 | handleJoin as sole initial state source | Eliminated race condition from onConnect state message | ✓ Good |
+| Fraunces + Commit Mono for brand typography | Org-wide brand fonts, human feel, editorial weight | ✓ Good — WONK 1, SOFT 100, full OpenType |
+| Grain only on JoinScreen, not session | Session screen needs max readability for chord charts | ✓ Good — scoped `.grain` class |
+| Self-hosted Commit Mono (not CDN) | Zero external dependency for monospace font | ✓ Good — copied from org/fonts |
 
 ---
-*Last updated: 2026-02-25 after v1.0 milestone*
+*Last updated: 2026-02-25 after v1.1 milestone*

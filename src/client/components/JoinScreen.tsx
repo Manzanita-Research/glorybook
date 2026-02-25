@@ -57,14 +57,14 @@ export function JoinScreen({ onJoin, initialCode }: JoinScreenProps) {
   }
 
   return (
-    <div className="min-h-dvh bg-surface text-text-primary safe-area-padding flex items-center justify-center px-4">
+    <div className="min-h-dvh bg-surface text-text-primary safe-area-padding flex items-center justify-center px-4 grain">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-[400px] space-y-6"
       >
         {/* Branding */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-accent-gold tracking-tight">
+          <h1 className="text-5xl font-light text-accent-gold tracking-tight font-display">
             Glory
           </h1>
           <p className="mt-1 text-text-secondary text-lg">soar.</p>
@@ -74,7 +74,7 @@ export function JoinScreen({ onJoin, initialCode }: JoinScreenProps) {
         <div className="space-y-1">
           <label
             htmlFor="name"
-            className="block text-sm text-text-secondary"
+            className="block text-xs uppercase tracking-[0.2em] text-text-secondary font-mono"
           >
             Your name
           </label>
@@ -91,7 +91,7 @@ export function JoinScreen({ onJoin, initialCode }: JoinScreenProps) {
 
         {/* Role selection */}
         <div className="space-y-1">
-          <span className="block text-sm text-text-secondary">Role</span>
+          <span className="block text-xs uppercase tracking-[0.2em] text-text-secondary font-mono">Role</span>
           <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
@@ -122,7 +122,7 @@ export function JoinScreen({ onJoin, initialCode }: JoinScreenProps) {
         <div className="space-y-1">
           <label
             htmlFor="session-code"
-            className="block text-sm text-text-secondary"
+            className="block text-xs uppercase tracking-[0.2em] text-text-secondary font-mono"
           >
             Session code
           </label>

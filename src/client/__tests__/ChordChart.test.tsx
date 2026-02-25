@@ -83,11 +83,10 @@ describe("ChordChart", () => {
     expect(screen.getByText("3 of 8")).toBeInTheDocument();
   });
 
-  it("renders key value in header", () => {
+  it("renders key label in header", () => {
     render(<ChordChart song={mockSong} position={1} total={8} />);
-    // Key label + value — the key value "G" appears in chord context too,
-    // find the one in the header area
-    expect(screen.getByText("Key:")).toBeInTheDocument();
+    // Key label — rendered as uppercase "KEY" via CSS, but text content is "Key"
+    expect(screen.getByText("Key")).toBeInTheDocument();
   });
 
   it("renders a box-grid row for pipe notation", () => {

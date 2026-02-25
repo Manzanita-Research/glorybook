@@ -175,7 +175,7 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
             </button>
 
             <div>
-              <h2 className="text-lg font-bold text-accent-gold tracking-tight leading-tight">
+              <h2 className="text-lg font-bold text-accent-gold tracking-tight leading-tight font-mono">
                 {code}
               </h2>
               <p className="text-text-secondary text-sm leading-tight">
@@ -220,7 +220,7 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
               role="status"
               aria-label={connected ? "Connected" : "Disconnected"}
             />
-            <span>{connected ? "connected" : "reconnecting..."}</span>
+            <span className="font-mono text-xs uppercase tracking-[0.2em]">{connected ? "connected" : "reconnecting..."}</span>
           </div>
         </div>
 

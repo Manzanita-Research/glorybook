@@ -1,3 +1,16 @@
+---
+gsd_state_version: 1.0
+milestone: v1.1
+milestone_name: Visual Polish
+status: complete
+last_updated: "2026-02-25"
+progress:
+  total_phases: 1
+  completed_phases: 1
+  total_plans: 2
+  completed_plans: 2
+---
+
 # Project State
 
 ## Project Reference
@@ -9,9 +22,9 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 
 ## Current Position
 
-Phase: v1.0 complete (8 phases, 18 plans)
+Phase: v1.1 complete (1 phase, 2 plans)
 Status: Milestone shipped
-Last activity: 2026-02-25 - Completed quick task 1: Remove idea.md and next.md after capturing unplanned items in planning files
+Last activity: 2026-02-25 - Completed v1.1 Visual Polish milestone
 
 Progress: [██████████] 100%
 
@@ -19,29 +32,19 @@ Progress: [██████████] 100%
 
 ### Decisions
 
-Decisions logged in PROJECT.md Key Decisions table. Full history in milestones/v1.0-ROADMAP.md.
+Decisions logged in PROJECT.md Key Decisions table. Full history in milestones/v1.0-ROADMAP.md and milestones/v1.1-ROADMAP.md.
 
 ### Pending Todos
 
 - Manual smoke test: partykit dev + two browser tabs syncing
 - Test hibernation + storage sharding against actual Cloudflare deploy
 
-### Roadmap Evolution
-
-- Phase 1 added: visual polish
-
 ### Blockers/Concerns
 
 (None — milestone complete)
 
-### Quick Tasks Completed
-
-| # | Description | Date | Commit | Directory |
-|---|-------------|------|--------|-----------|
-| 1 | Remove idea.md and next.md after capturing unplanned items in planning files | 2026-02-25 | 5ed37f8 | [1-remove-idea-md-and-next-md-after-capturi](./quick/1-remove-idea-md-and-next-md-after-capturi/) |
-
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed quick-1 (removed seed files, captured missing requirements)
+Stopped at: Completed v1.1 Visual Polish milestone
 Next step: `/gsd:new-milestone`
