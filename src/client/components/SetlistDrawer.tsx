@@ -1,9 +1,12 @@
-import type { Song } from "../../shared/protocol";
+import type { Song, SessionUser } from "../../shared/protocol";
+import { PresenceList } from "./PresenceList";
 
 interface SetlistDrawerProps {
   open: boolean;
   songs: Song[];
   liveIndex: number;
+  users: SessionUser[];
+  leaderId: string | null;
   onSelect: (index: number) => void;
   onClose: () => void;
 }
@@ -14,11 +17,15 @@ interface SetlistDrawerProps {
  * The live song is highlighted with a gold left accent bar and bold text.
  * Tapping a song browses to it locally (does NOT change the live song
  * for others). Drawer closes on song selection or backdrop tap.
+ *
+ * PresenceList sits at the bottom showing connected users with status dots.
  */
 export function SetlistDrawer({
   open,
   songs,
   liveIndex,
+  users,
+  leaderId,
   onSelect,
   onClose,
 }: SetlistDrawerProps) {
@@ -73,6 +80,9 @@ export function SetlistDrawer({
             );
           })}
         </ul>
+
+        {/* Presence indicators */}
+        <PresenceList users={users} leaderId={leaderId} />
       </div>
     </>
   );

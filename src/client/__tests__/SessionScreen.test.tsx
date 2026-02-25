@@ -224,4 +224,17 @@ describe("SessionScreen", () => {
     await user.click(screen.getByText("GO LIVE"));
     expect(mockGoLive).toHaveBeenCalledOnce();
   });
+
+  // --- Presence in drawer tests ---
+
+  it("passes users to SetlistDrawer for presence display", async () => {
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    const user = userEvent.setup();
+    // Open drawer
+    await user.click(screen.getByLabelText("Open setlist"));
+    // Presence list heading appears
+    expect(screen.getByText("Connected")).toBeInTheDocument();
+    // Bobby appears in presence list (Jerry appears in both header and presence, so use Bobby to confirm)
+    expect(screen.getAllByText(/Bobby/).length).toBeGreaterThanOrEqual(1);
+  });
 });
