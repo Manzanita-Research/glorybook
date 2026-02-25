@@ -11,8 +11,19 @@ interface JoinConfig {
   code: string;
 }
 
+/** Read ?code= from URL and clean up so refresh doesn't re-trigger */
+export function getCodeFromURL(): string | null {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+  if (code) {
+    window.history.replaceState({}, "", window.location.pathname);
+  }
+  return code;
+}
+
 export function App() {
   const [joinConfig, setJoinConfig] = useState<JoinConfig | null>(null);
+  const [initialCode] = useState(() => getCodeFromURL());
 
   // Apply saved theme on mount
   useEffect(() => {
@@ -33,7 +44,7 @@ export function App() {
           code={joinConfig.code}
         />
       ) : (
-        <JoinScreen onJoin={handleJoin} />
+        <JoinScreen onJoin={handleJoin} initialCode={initialCode ?? undefined} />
       )}
     </>
   );

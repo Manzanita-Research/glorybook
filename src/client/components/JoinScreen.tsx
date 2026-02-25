@@ -3,6 +3,7 @@ import type { UserRole } from "../../shared/protocol";
 
 interface JoinScreenProps {
   onJoin: (name: string, role: UserRole, code: string) => void;
+  initialCode?: string;
 }
 
 const STORAGE_KEY = "glory-name";
@@ -23,10 +24,10 @@ function storeName(name: string): void {
   }
 }
 
-export function JoinScreen({ onJoin }: JoinScreenProps) {
+export function JoinScreen({ onJoin, initialCode }: JoinScreenProps) {
   const [name, setName] = useState(getStoredName);
   const [role, setRole] = useState<UserRole>("follower");
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(initialCode ?? "");
   const [error, setError] = useState<string | null>(null);
   const [hasAttempted, setHasAttempted] = useState(false);
 
