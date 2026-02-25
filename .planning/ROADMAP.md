@@ -63,7 +63,10 @@ Plans:
   4. The song title and key are visible in a persistent header above the chart
   5. A long chart scrolls independently within the viewer without the header scrolling away
   6. Chart text is at minimum 20px, monospaced, readable at arm's length on an iPad
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 03-01-PLAN.md — Chord tokenizer (TDD): pure function for line classification and chord/lyric segment extraction
+- [ ] 03-02-PLAN.md — Rendering components + integration: ChordLine, BoxGridLine, SongHeader, ChordChart, wire into SessionScreen
 
 ### Phase 4: Navigation and Leader Controls
 **Goal**: The leader can move through the setlist and followers see the change instantly
@@ -110,7 +113,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Sync Layer Hardening | 4/4 | Complete | 2026-02-24 |
 | 2. App Shell | 2/2 | Complete | 2026-02-24 |
-| 3. Song Rendering | 0/TBD | Not started | - |
+| 3. Song Rendering | 0/2 | Planning complete | - |
 | 4. Navigation and Leader Controls | 0/TBD | Not started | - |
 | 5. Follower UX | 0/TBD | Not started | - |
 | 6. Session Entry and Polish | 0/TBD | Not started | - |
