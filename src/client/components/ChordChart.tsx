@@ -10,6 +10,7 @@ interface ChordChartProps {
   song: Song;
   position: number;
   total: number;
+  animateTransition?: boolean;
 }
 
 /**
@@ -19,7 +20,7 @@ interface ChordChartProps {
  * a scrollable body. The parent SessionScreen provides viewport height
  * via flex layout — this component fills available space with flex-col.
  */
-export function ChordChart({ song, position, total }: ChordChartProps) {
+export function ChordChart({ song, position, total, animateTransition }: ChordChartProps) {
   const lines = useMemo(() => tokenizeChart(song.chart), [song.chart]);
 
   function renderLine(line: ParsedLine, i: number) {
@@ -64,7 +65,12 @@ export function ChordChart({ song, position, total }: ChordChartProps) {
   return (
     <div className="flex flex-col h-full">
       <SongHeader song={song} position={position} total={total} />
-      <div className="flex-1 overflow-y-auto px-4 py-4 font-mono text-xl">
+      <div
+        key={animateTransition ? `song-${song.id}` : undefined}
+        className={`flex-1 overflow-y-auto px-4 py-4 font-mono text-xl${
+          animateTransition ? " animate-[slide-in-left_200ms_ease-out]" : ""
+        }`}
+      >
         {lines.map((line, i) => renderLine(line, i))}
       </div>
     </div>

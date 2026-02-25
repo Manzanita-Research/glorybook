@@ -5,6 +5,7 @@ import { ChordChart } from "./ChordChart";
 import { NavigationBar } from "./NavigationBar";
 import { SetlistDrawer } from "./SetlistDrawer";
 import { TransferMenu } from "./TransferMenu";
+import { GoLiveBanner } from "./GoLiveBanner";
 
 interface SessionScreenProps {
   name: string;
@@ -30,6 +31,25 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [transferMenuOpen, setTransferMenuOpen] = useState(false);
 
+  // Pulse detection — border/banner pulse when leader advances while follower is browsing
+  const [pulse, setPulse] = useState(false);
+  const prevLiveIndexRef = useRef(liveIndex);
+
+  useEffect(() => {
+    if (liveIndex !== prevLiveIndexRef.current) {
+      if (!isLive) {
+        setPulse(true);
+        const timer = setTimeout(() => setPulse(false), 600);
+        prevLiveIndexRef.current = liveIndex;
+        return () => clearTimeout(timer);
+      }
+      prevLiveIndexRef.current = liveIndex;
+    }
+  }, [liveIndex, isLive]);
+
+  // Go Live snap-back suppresses slide animation for one render cycle
+  const justSnappedBackRef = useRef(false);
+
   // Long-press detection for LEADER badge
   const longPressTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
   const longPressFiredRef = useRef(false);
@@ -54,6 +74,9 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
   const currentSong = songs[displayIndex] ?? null;
   const position = displayIndex + 1;
 
+  // Whether to animate song transitions (only during auto-follow, not Go Live snap-back)
+  const animateTransition = isLive && !justSnappedBackRef.current;
+
   // Navigation handlers — leader changes live song, follower browses
   function handlePrev() {
     if (isLeader) {
@@ -69,6 +92,16 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
     } else {
       actions.browse(displayIndex + 1);
     }
+  }
+
+  // Go Live handler — instant snap-back, no animation
+  function handleGoLive() {
+    justSnappedBackRef.current = true;
+    actions.goLive();
+    // Clear on next frame so subsequent auto-follows animate
+    requestAnimationFrame(() => {
+      justSnappedBackRef.current = false;
+    });
   }
 
   // Drawer song selection — always browses locally
@@ -99,9 +132,21 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
     }
   }
 
+  // Browse-away state: follower is not on the live song
+  const isBrowsingAway = !isLive && !isLeader;
+
   return (
     <>
-      <div className="h-dvh bg-surface text-text-primary safe-area-padding flex flex-col">
+      <div
+        className={`h-dvh bg-surface text-text-primary safe-area-padding flex flex-col${
+          isBrowsingAway ? " ring-4 ring-inset ring-accent-gold" : ""
+        }${
+          isBrowsingAway && pulse
+            ? " animate-[ring-pulse_0.6s_ease-in-out]"
+            : ""
+        }`}
+        data-testid="session-root"
+      >
         {/* Session info header — compact, non-growing */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
           {/* Hamburger + session info */}
@@ -162,6 +207,11 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
           </div>
         </div>
 
+        {/* GO LIVE banner — appears when follower browses away from live song */}
+        {isBrowsingAway && (
+          <GoLiveBanner onGoLive={handleGoLive} pulse={pulse} />
+        )}
+
         {/* Chord chart — fills remaining viewport, owns its own scroll */}
         <div className="flex-1 min-h-0">
           {currentSong ? (
@@ -169,6 +219,7 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
               song={currentSong}
               position={position}
               total={total}
+              animateTransition={animateTransition}
             />
           ) : (
             <div className="mt-8 text-center text-text-muted text-sm">

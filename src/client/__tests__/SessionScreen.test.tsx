@@ -176,4 +176,52 @@ describe("SessionScreen", () => {
     // TransferMenu dialog should not be present
     expect(screen.queryByRole("dialog", { name: "Transfer Leadership" })).not.toBeInTheDocument();
   });
+
+  // --- GoLiveBanner tests ---
+
+  it("shows GoLiveBanner when follower is browsing away", () => {
+    mockReturnValue = { ...defaultMockReturn, isLive: false, isLeader: false, actions: mockActions };
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    expect(screen.getByText("GO LIVE")).toBeInTheDocument();
+  });
+
+  it("does not show GoLiveBanner when follower is live", () => {
+    mockReturnValue = { ...defaultMockReturn, isLive: true, isLeader: false, actions: mockActions };
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    expect(screen.queryByText("GO LIVE")).not.toBeInTheDocument();
+  });
+
+  it("does not show GoLiveBanner for leader", () => {
+    mockReturnValue = { ...defaultMockReturn, isLeader: true, isLive: false, actions: mockActions };
+    render(<SessionScreen name="Jerry" role="leader" code="scarlet-042" />);
+    expect(screen.queryByText("GO LIVE")).not.toBeInTheDocument();
+  });
+
+  it("shows gold ring when follower is browsing away", () => {
+    mockReturnValue = { ...defaultMockReturn, isLive: false, isLeader: false, actions: mockActions };
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    const root = screen.getByTestId("session-root");
+    expect(root.className).toContain("ring-accent-gold");
+  });
+
+  it("does not show gold ring when live", () => {
+    mockReturnValue = { ...defaultMockReturn, isLive: true, isLeader: false, actions: mockActions };
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    const root = screen.getByTestId("session-root");
+    expect(root.className).not.toContain("ring-accent-gold");
+  });
+
+  it("GoLiveBanner calls actions.goLive when clicked", async () => {
+    const mockGoLive = vi.fn();
+    mockReturnValue = {
+      ...defaultMockReturn,
+      isLive: false,
+      isLeader: false,
+      actions: { ...mockActions, goLive: mockGoLive },
+    };
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    const user = userEvent.setup();
+    await user.click(screen.getByText("GO LIVE"));
+    expect(mockGoLive).toHaveBeenCalledOnce();
+  });
 });
