@@ -79,7 +79,10 @@ Plans:
   4. The full setlist is visible in a sidebar with the current live song highlighted
   5. Tapping a song in the sidebar navigates to it (browsing, not changing the live song for others)
   6. The leader can transfer leadership to another connected user
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 04-01-PLAN.md — Navigation bar (prev/next transport) and LEADER badge
+- [ ] 04-02-PLAN.md — Setlist drawer sidebar and leadership transfer menu
 
 ### Phase 5: Follower UX
 **Goal**: Followers can browse independently and snap back to the live song with one tap
@@ -114,7 +117,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Sync Layer Hardening | 4/4 | Complete | 2026-02-24 |
 | 2. App Shell | 2/2 | Complete | 2026-02-24 |
 | 3. Song Rendering | 2/2 | Complete    | 2026-02-25 |
-| 4. Navigation and Leader Controls | 0/TBD | Not started | - |
+| 4. Navigation and Leader Controls | 0/2 | Planned | - |
 | 5. Follower UX | 0/TBD | Not started | - |
 | 6. Session Entry and Polish | 0/TBD | Not started | - |
 
