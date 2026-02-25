@@ -245,6 +245,8 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
         open={drawerOpen}
         songs={songs}
         liveIndex={liveIndex}
+        users={sessionState?.users ?? []}
+        leaderId={sessionState?.leaderId ?? null}
         onSelect={handleDrawerSelect}
         onClose={() => setDrawerOpen(false)}
       />
