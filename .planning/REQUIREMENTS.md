@@ -9,11 +9,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Sync Layer
 
-- [ ] **SYNC-01**: Server handles join, song navigation, browse/go-live, setlist management, leader transfer, and presence without bugs
-- [ ] **SYNC-02**: React hook exposes connection state, current song, isLive status, and actions without stale closures
-- [ ] **SYNC-03**: Server persists state correctly within Cloudflare storage limits
-- [ ] **SYNC-04**: Connection survives iOS Safari screen lock via Wake Lock API
-- [ ] **SYNC-05**: Client automatically reconnects and re-joins session after WiFi drop
+- [x] **SYNC-01**: Server handles join, song navigation, browse/go-live, setlist management, leader transfer, and presence without bugs
+- [x] **SYNC-02**: React hook exposes connection state, current song, isLive status, and actions without stale closures
+- [x] **SYNC-03**: Server persists state correctly within Cloudflare storage limits
+- [x] **SYNC-04**: Connection survives iOS Safari screen lock via Wake Lock API
+- [x] **SYNC-05**: Client automatically reconnects and re-joins session after WiFi drop
 
 ### App Shell
 
@@ -97,11 +97,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SYNC-01 | Phase 1 | Pending |
-| SYNC-02 | Phase 1 | Pending |
-| SYNC-03 | Phase 1 | Pending |
-| SYNC-04 | Phase 1 | Pending |
-| SYNC-05 | Phase 1 | Pending |
+| SYNC-01 | Phase 1 | Done |
+| SYNC-02 | Phase 1 | Done |
+| SYNC-03 | Phase 1 | Done |
+| SYNC-04 | Phase 1 | Done |
+| SYNC-05 | Phase 1 | Done |
 | SHELL-01 | Phase 2 | Pending |
 | SHELL-02 | Phase 2 | Pending |
 | SHELL-03 | Phase 2 | Pending |

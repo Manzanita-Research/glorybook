@@ -12,7 +12,7 @@ The sync layer was one-shotted and has known bugs — stale closures, storage li
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Sync Layer Hardening** - Fix the existing server and hook bugs before building UI on top of them
+- [x] **Phase 1: Sync Layer Hardening** - Fix the existing server and hook bugs before building UI on top of them (completed 2026-02-24)
 - [ ] **Phase 2: App Shell** - Entry point, context architecture, join screen, and iOS reliability
 - [ ] **Phase 3: Song Rendering** - Chord chart display with gold/blue/purple highlighting
 - [ ] **Phase 4: Navigation and Leader Controls** - Full sync loop exercised end-to-end
@@ -31,7 +31,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Presence state (who is connected, who is leader) survives a Durable Object hibernation wake-up
   4. The server waits a grace period before promoting a new leader when the current leader disconnects
   5. The client reconnects and re-joins the session automatically after a WiFi drop without user intervention
-**Plans**: TBD
+**Plans**: 4 plans (4/4 complete)
+- [x] 01-01-PLAN.md -- Protocol redesign (types, messages, session code utility)
+- [x] 01-02-PLAN.md -- Server hardening (hibernation, sharded storage, leader grace period)
+- [x] 01-03-PLAN.md -- Hook rewrite (stale closure fix, reconnect re-join, Wake Lock)
+- [x] 01-04-PLAN.md -- Tests (Vitest setup, server tests, hook tests)
 
 ### Phase 2: App Shell
 **Goal**: A loadable app with working session entry that can connect to the sync layer
@@ -101,7 +105,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Sync Layer Hardening | 0/TBD | Not started | - |
+| 1. Sync Layer Hardening | 4/4 | Complete | 2026-02-24 |
 | 2. App Shell | 0/TBD | Not started | - |
 | 3. Song Rendering | 0/TBD | Not started | - |
 | 4. Navigation and Leader Controls | 0/TBD | Not started | - |
