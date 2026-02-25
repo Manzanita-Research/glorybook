@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDeadSync } from "../use-deadsync";
 import type { UserRole } from "../../shared/protocol";
 import { ChordChart } from "./ChordChart";
+import { NavigationBar } from "./NavigationBar";
 
 interface SessionScreenProps {
   name: string;
@@ -14,6 +15,9 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
     connected,
     sessionState,
     isLeader,
+    isLive,
+    liveIndex,
+    localIndex,
     actions,
   } = useDeadSync({
     host: window.location.host,
@@ -26,9 +30,29 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const currentSong = sessionState?.setlist.songs[sessionState.liveIndex];
-  const total = sessionState?.setlist.songs.length ?? 0;
-  const position = (sessionState?.liveIndex ?? 0) + 1;
+  // Compute navigation values — respects browse state
+  const songs = sessionState?.setlist.songs ?? [];
+  const total = songs.length;
+  const displayIndex = isLive ? liveIndex : localIndex;
+  const currentSong = songs[displayIndex] ?? null;
+  const position = displayIndex + 1;
+
+  // Navigation handlers — leader changes live song, follower browses
+  function handlePrev() {
+    if (isLeader) {
+      actions.setSong(liveIndex - 1);
+    } else {
+      actions.browse(displayIndex - 1);
+    }
+  }
+
+  function handleNext() {
+    if (isLeader) {
+      actions.setSong(liveIndex + 1);
+    } else {
+      actions.browse(displayIndex + 1);
+    }
+  }
 
   return (
     <div className="h-dvh bg-surface text-text-primary safe-area-padding flex flex-col">
@@ -40,13 +64,12 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
           </h2>
           <p className="text-text-secondary text-sm leading-tight">
             {name} &middot;{" "}
-            <span className="capitalize">
-              {isLeader ? "leader" : role}
-            </span>
-            {isLeader && (
-              <span className="ml-1 text-accent-gold font-medium">
-                &#9733;
+            {isLeader ? (
+              <span className="bg-accent-gold/20 text-accent-gold text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded">
+                LEADER
               </span>
+            ) : (
+              <span className="text-text-secondary">follower</span>
             )}
           </p>
         </div>
@@ -78,6 +101,17 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
           </div>
         )}
       </div>
+
+      {/* Navigation bar — shrink-0, sticks to bottom */}
+      {total > 0 && (
+        <NavigationBar
+          songTitle={currentSong?.title ?? ""}
+          position={position}
+          total={total}
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
+      )}
     </div>
   );
 }
