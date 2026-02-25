@@ -10,7 +10,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Sync Layer
 
 - [x] **SYNC-01**: Server handles join, song navigation, browse/go-live, setlist management, leader transfer, and presence without bugs
-- [x] **SYNC-02**: React hook exposes connection state, current song, isLive status, and actions without stale closures
+- [ ] **SYNC-02**: React hook exposes connection state, current song, isLive status, and actions without stale closures
 - [x] **SYNC-03**: Server persists state correctly within Cloudflare storage limits
 - [x] **SYNC-04**: Connection survives iOS Safari screen lock via Wake Lock API
 - [x] **SYNC-05**: Client automatically reconnects and re-joins session after WiFi drop
@@ -98,7 +98,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | SYNC-01 | Phase 1 | Done |
-| SYNC-02 | Phase 1 | Done |
+| SYNC-02 | Phase 7 | Pending |
 | SYNC-03 | Phase 1 | Done |
 | SYNC-04 | Phase 1 | Done |
 | SYNC-05 | Phase 1 | Done |
@@ -133,6 +133,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 **Coverage:**
 - v1 requirements: 27 total
 - Mapped to phases: 27
+- Complete: 26
+- Pending: 1 (SYNC-02 → Phase 7)
 - Unmapped: 0
 
 ---
