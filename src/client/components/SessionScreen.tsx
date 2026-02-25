@@ -7,6 +7,7 @@ import { SetlistDrawer } from "./SetlistDrawer";
 import { TransferMenu } from "./TransferMenu";
 import { GoLiveBanner } from "./GoLiveBanner";
 import { LeaderDisconnectBanner } from "./LeaderDisconnectBanner";
+import { QRCodePanel } from "./QRCodePanel";
 
 interface SessionScreenProps {
   name: string;
@@ -32,6 +33,7 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [transferMenuOpen, setTransferMenuOpen] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
 
   // Pulse detection — border/banner pulse when leader advances while follower is browsing
   const [pulse, setPulse] = useState(false);
@@ -196,8 +198,21 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
             </div>
           </div>
 
-          {/* Connection indicator */}
+          {/* Share button (leader only) + Connection indicator */}
           <div className="flex items-center gap-2 text-sm text-text-secondary">
+            {isLeader && (
+              <button
+                className="min-w-12 min-h-12 flex items-center justify-center text-text-secondary"
+                onClick={() => setQrOpen(true)}
+                aria-label="Share session"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+                  <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8" />
+                  <polyline points="16 6 12 2 8 6" />
+                  <line x1="12" y1="2" x2="12" y2="15" />
+                </svg>
+              </button>
+            )}
             <span
               className={`inline-block w-2.5 h-2.5 rounded-full ${
                 connected ? "bg-status-connected" : "bg-status-disconnected"
@@ -264,6 +279,10 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
           onTransfer={handleTransfer}
           onClose={() => setTransferMenuOpen(false)}
         />
+      )}
+
+      {isLeader && qrOpen && (
+        <QRCodePanel sessionCode={code} onClose={() => setQrOpen(false)} />
       )}
     </>
   );

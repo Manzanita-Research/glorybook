@@ -273,6 +273,38 @@ describe("SessionScreen", () => {
     expect(screen.getAllByText(/Bobby/).length).toBeGreaterThanOrEqual(1);
   });
 
+  // --- QR Share button tests ---
+
+  it("leader sees 'Share session' button", () => {
+    mockReturnValue = { ...defaultMockReturn, isLeader: true, actions: mockActions };
+    render(<SessionScreen name="Jerry" role="leader" code="scarlet-042" />);
+    expect(screen.getByLabelText("Share session")).toBeInTheDocument();
+  });
+
+  it("follower does NOT see 'Share session' button", () => {
+    mockReturnValue = { ...defaultMockReturn, isLeader: false, actions: mockActions };
+    render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
+    expect(screen.queryByLabelText("Share session")).not.toBeInTheDocument();
+  });
+
+  it("clicking share button opens QR panel", async () => {
+    mockReturnValue = { ...defaultMockReturn, isLeader: true, actions: mockActions };
+    render(<SessionScreen name="Jerry" role="leader" code="scarlet-042" />);
+    const user = userEvent.setup();
+    await user.click(screen.getByLabelText("Share session"));
+    expect(screen.getByText("Join this session")).toBeInTheDocument();
+  });
+
+  it("closing QR panel returns to normal view", async () => {
+    mockReturnValue = { ...defaultMockReturn, isLeader: true, actions: mockActions };
+    render(<SessionScreen name="Jerry" role="leader" code="scarlet-042" />);
+    const user = userEvent.setup();
+    await user.click(screen.getByLabelText("Share session"));
+    expect(screen.getByText("Join this session")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /done/i }));
+    expect(screen.queryByText("Join this session")).not.toBeInTheDocument();
+  });
+
   // --- Presence dot colors (UAT Test 9) ---
 
   it("shows green dot for live user and gold dot for browsing user in drawer (UAT Test 9)", async () => {
