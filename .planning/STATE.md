@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 3 of 6 (Song Rendering)
-Plan: 1 of 3 in current phase
-Status: Plan 03-01 complete
-Last activity: 2026-02-24 — Plan 03-01 complete
+Plan: 2 of 3 in current phase
+Status: Plan 03-02 complete
+Last activity: 2026-02-24 — Plan 03-02 complete
 
-Progress: [████░░░░░░] 40%
+Progress: [█████░░░░░] 47%
 
 ## Performance Metrics
 
@@ -28,13 +28,14 @@ Progress: [████░░░░░░] 40%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Sync Layer Hardening | 4 | ~35 min | ~8 min |
-| 3. Song Rendering | 1 | ~2 min | ~2 min |
+| 3. Song Rendering | 2 | ~10 min | ~5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01, 01-02, 01-03, 01-04, 03-01
+- Last 5 plans: 01-03, 01-04, 03-01, 03-02, 03-02
 - Trend: Consistent
 
 *Updated after each plan completion*
+| Phase 03-song-rendering P02 | 8 | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -52,6 +53,9 @@ Recent decisions affecting current work:
 - Phase 1: Leader grace period uses PartyKit alarm (30 seconds). Reconnecting leader reclaims by name match.
 - Phase 1: Stale closure fixed with useRef pattern. React 19 upgrade deferred to Phase 2.
 - Phase 1: Wake Lock utility created but real testing deferred to Phase 2 (needs UI).
+- [Phase 03-song-rendering]: useMemo on song.chart for tokenization — pure function, memoize once per song change
+- [Phase 03-song-rendering]: flex-1 min-h-0 wrapper required for overflow-y-auto to work inside flex child in ChordChart
+- [Phase 03-song-rendering]: User list removed from SessionScreen for Phase 3 — returns in Phase 5 (PRES-01/02) with proper presence indicators
 
 ### Pending Todos
 
@@ -68,5 +72,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 03-song-rendering plan 03-01 (chord tokenizer)
-Resume file: .planning/phases/03-song-rendering/03-01-SUMMARY.md
+Stopped at: Completed 03-song-rendering plan 03-02 (chord chart rendering components)
+Resume file: .planning/phases/03-song-rendering/03-02-SUMMARY.md

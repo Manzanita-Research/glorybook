@@ -32,9 +32,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **SONG-01**: User sees the current song's chord chart rendered from markdown
 - [x] **SONG-02**: Chords are highlighted in gold, section headers in blue, notes in purple
-- [ ] **SONG-03**: Song title and key are visible at the top of the viewer
-- [ ] **SONG-04**: User can scroll within a long chord chart
-- [ ] **SONG-05**: Font is readable at glance distance (20-22px minimum, monospaced for chord alignment)
+- [x] **SONG-03**: Song title and key are visible at the top of the viewer
+- [x] **SONG-04**: User can scroll within a long chord chart
+- [x] **SONG-05**: Font is readable at glance distance (20-22px minimum, monospaced for chord alignment)
 
 ### Leader Controls
 
@@ -110,9 +110,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | JOIN-03 | Phase 2 | Done |
 | SONG-01 | Phase 3 | Complete |
 | SONG-02 | Phase 3 | Complete |
-| SONG-03 | Phase 3 | Pending |
-| SONG-04 | Phase 3 | Pending |
-| SONG-05 | Phase 3 | Pending |
+| SONG-03 | Phase 3 | Complete |
+| SONG-04 | Phase 3 | Complete |
+| SONG-05 | Phase 3 | Complete |
 | LEAD-01 | Phase 4 | Pending |
 | LEAD-02 | Phase 4 | Pending |
 | LEAD-03 | Phase 4 | Pending |
