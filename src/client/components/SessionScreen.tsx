@@ -6,6 +6,7 @@ import { NavigationBar } from "./NavigationBar";
 import { SetlistDrawer } from "./SetlistDrawer";
 import { TransferMenu } from "./TransferMenu";
 import { GoLiveBanner } from "./GoLiveBanner";
+import { LeaderDisconnectBanner } from "./LeaderDisconnectBanner";
 
 interface SessionScreenProps {
   name: string;
@@ -22,6 +23,7 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
     isLive,
     liveIndex,
     localIndex,
+    leaderDisconnected,
     actions,
   } = useDeadSync({
     host: window.location.host,
@@ -206,6 +208,9 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
             <span>{connected ? "connected" : "reconnecting..."}</span>
           </div>
         </div>
+
+        {/* Leader disconnect banner — informational, followers only */}
+        {leaderDisconnected && !isLeader && <LeaderDisconnectBanner />}
 
         {/* GO LIVE banner — appears when follower browses away from live song */}
         {isBrowsingAway && (
