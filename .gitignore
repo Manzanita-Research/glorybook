@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# local dev caches
+.partykit/
+
+# tooling
+.claude/
+.playwright-mcp/
+.planning/agent-history.json
+
+# test artifacts
+*.png
