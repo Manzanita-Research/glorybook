@@ -1,71 +1,160 @@
 // ============================================
-// DeadSync PartyKit Server
+// DeadSync PartyKit Server — v2
 // ============================================
 // Each "room" is a jam session. The server holds
 // the canonical state: who's connected, who's leading,
 // and what song we're on.
 //
-// Deploy to PartyKit cloud for rehearsals-from-anywhere,
-// or run locally on a Mac mini at the venue.
+// Phase 1 hardening:
+// - Hibernation enabled (scales to 32k connections, survives sleep)
+// - Sharded storage (songs stored individually, no 128 KiB limit)
+// - Leader grace period (30s alarm before promoting on disconnect)
+// - Join-order tracking for predictable leader promotion
 
 import type * as Party from "partykit/server";
 import type {
   ClientMessage,
   ServerMessage,
-  SessionState,
   SessionUser,
   Setlist,
+  Song,
+  UserRole,
 } from "../shared/protocol";
 import { generateSessionCode } from "../shared/protocol";
-
-// Default setlist — will be replaceable by the leader
 import { DEFAULT_SETLIST } from "../shared/default-setlist";
 
+// --- Storage types (sharded keys) ---
+
+interface StoredMeta {
+  sessionCode: string;
+  liveIndex: number;
+  leaderId: string | null;
+}
+
+interface StoredSetlistInfo {
+  id: string;
+  name: string;
+  songCount: number;
+}
+
+interface StoredDisconnectedLeader {
+  id: string;
+  name: string;
+  disconnectedAt: number;
+}
+
+// --- Constants ---
+
+const LEADER_GRACE_PERIOD_MS = 30_000; // 30 seconds
+
 export default class DeadSyncServer implements Party.Server {
-  // --- In-memory state ---
+  // Hibernation: server sleeps between messages, wakes on activity
+  options: Party.ServerOptions = {
+    hibernate: true,
+  };
+
+  // --- In-memory state (restored from storage on wake) ---
   sessionCode: string = "";
-  setlist: Setlist = DEFAULT_SETLIST;
   liveIndex: number = 0;
   leaderId: string | null = null;
+  setlistInfo: StoredSetlistInfo = { id: "", name: "", songCount: 0 };
   users: Map<string, SessionUser> = new Map();
+  pendingLeaderDisconnect: string | null = null;
 
   constructor(readonly room: Party.Room) {}
 
-  // --- Lifecycle: load state on start ---
+  // --- Lifecycle: load state on start (and on every hibernation wake) ---
   async onStart() {
-    // Restore persisted state if it exists
-    const stored = await this.room.storage.get<{
-      sessionCode: string;
-      setlist: Setlist;
-      liveIndex: number;
-      leaderId: string | null;
-    }>("session");
-
-    if (stored) {
-      this.sessionCode = stored.sessionCode;
-      this.setlist = stored.setlist;
-      this.liveIndex = stored.liveIndex;
-      this.leaderId = stored.leaderId;
+    const meta = await this.room.storage.get<StoredMeta>("meta");
+    if (meta) {
+      this.sessionCode = meta.sessionCode;
+      this.liveIndex = meta.liveIndex;
+      this.leaderId = meta.leaderId;
     } else {
       this.sessionCode = generateSessionCode();
     }
+
+    const setlistInfo =
+      await this.room.storage.get<StoredSetlistInfo>("setlist-info");
+    if (setlistInfo) {
+      this.setlistInfo = setlistInfo;
+    } else {
+      // First start — seed default setlist
+      this.setlistInfo = {
+        id: DEFAULT_SETLIST.id,
+        name: DEFAULT_SETLIST.name,
+        songCount: DEFAULT_SETLIST.songs.length,
+      };
+      await this.room.storage.put("setlist-info", this.setlistInfo);
+      for (let i = 0; i < DEFAULT_SETLIST.songs.length; i++) {
+        await this.room.storage.put(`song:${i}`, DEFAULT_SETLIST.songs[i]);
+      }
+      await this.persistMeta();
+    }
+
+    // Restore pending leader disconnect state
+    const disconnected =
+      await this.room.storage.get<StoredDisconnectedLeader>(
+        "disconnectedLeader",
+      );
+    if (disconnected) {
+      this.pendingLeaderDisconnect = disconnected.id;
+    }
   }
 
-  // --- Persist state ---
-  async persistState() {
-    await this.room.storage.put("session", {
+  // --- Storage: sharded persistence ---
+
+  async persistMeta() {
+    await this.room.storage.put<StoredMeta>("meta", {
       sessionCode: this.sessionCode,
-      setlist: this.setlist,
       liveIndex: this.liveIndex,
       leaderId: this.leaderId,
     });
   }
 
+  async persistSetlist(setlist: Setlist) {
+    // Delete old songs
+    const oldKeys: string[] = [];
+    for (let i = 0; i < this.setlistInfo.songCount; i++) {
+      oldKeys.push(`song:${i}`);
+    }
+    if (oldKeys.length > 0) {
+      await this.room.storage.delete(oldKeys);
+    }
+
+    // Write new setlist info and songs
+    this.setlistInfo = {
+      id: setlist.id,
+      name: setlist.name,
+      songCount: setlist.songs.length,
+    };
+    await this.room.storage.put("setlist-info", this.setlistInfo);
+    for (let i = 0; i < setlist.songs.length; i++) {
+      await this.room.storage.put(`song:${i}`, setlist.songs[i]);
+    }
+  }
+
+  async getFullSetlist(): Promise<Setlist> {
+    const songs: Song[] = [];
+    const entries = await this.room.storage.list<Song>({ prefix: "song:" });
+    // Sort by key to maintain song order
+    const sorted = [...entries.entries()].sort(([a], [b]) => {
+      const numA = parseInt(a.split(":")[1]);
+      const numB = parseInt(b.split(":")[1]);
+      return numA - numB;
+    });
+    for (const [, song] of sorted) {
+      songs.push(song);
+    }
+    return { id: this.setlistInfo.id, name: this.setlistInfo.name, songs };
+  }
+
   // --- Build the full state snapshot ---
-  getState(): SessionState {
+  async getState() {
+    const setlist = await this.getFullSetlist();
     return {
       sessionCode: this.sessionCode,
-      setlist: this.setlist,
+      setlist,
       liveIndex: this.liveIndex,
       leaderId: this.leaderId,
       users: Array.from(this.users.values()),
@@ -84,22 +173,58 @@ export default class DeadSyncServer implements Party.Server {
 
   // --- Connection events ---
 
-  onConnect(connection: Party.Connection, ctx: Party.ConnectionContext) {
-    // Send current state to the new connection immediately
-    this.send(connection, { type: "state", state: this.getState() });
+  async onConnect(connection: Party.Connection) {
+    // Send current state to the new connection
+    const state = await this.getState();
+    this.send(connection, { type: "state", state });
   }
 
-  onClose(connection: Party.Connection) {
+  async onClose(connection: Party.Connection) {
     const user = this.users.get(connection.id);
     if (!user) return;
 
     this.users.delete(connection.id);
 
-    // If the leader left, promote someone else or clear
+    // If the leader disconnected, start the grace period
     if (this.leaderId === connection.id) {
+      this.pendingLeaderDisconnect = connection.id;
+
+      // Store disconnected leader info for potential reclaim
+      await this.room.storage.put<StoredDisconnectedLeader>(
+        "disconnectedLeader",
+        {
+          id: connection.id,
+          name: user.name,
+          disconnectedAt: Date.now(),
+        },
+      );
+
+      // Set alarm for grace period — don't promote yet
+      await this.room.storage.setAlarm(Date.now() + LEADER_GRACE_PERIOD_MS);
+
+      // Tell followers the leader dropped
+      this.broadcast({
+        type: "leader-disconnected",
+        graceSeconds: LEADER_GRACE_PERIOD_MS / 1000,
+      });
+    }
+
+    this.broadcast({ type: "user-left", userId: connection.id });
+    await this.persistMeta();
+  }
+
+  // --- Alarm: leader grace period expired ---
+
+  async onAlarm() {
+    if (this.pendingLeaderDisconnect) {
+      this.pendingLeaderDisconnect = null;
+      await this.room.storage.delete("disconnectedLeader");
+
+      // Promote the first user by join order
       const remaining = Array.from(this.users.values());
       if (remaining.length > 0) {
-        // Promote the first remaining user
+        // Sort by joinedAt to find the earliest joiner
+        remaining.sort((a, b) => a.joinedAt - b.joinedAt);
         const newLeader = remaining[0];
         newLeader.role = "leader";
         this.leaderId = newLeader.id;
@@ -110,21 +235,21 @@ export default class DeadSyncServer implements Party.Server {
           leaderId: newLeader.id,
           leaderName: newLeader.name,
         });
+
+        await this.persistMeta();
       } else {
         this.leaderId = null;
+        await this.persistMeta();
       }
     }
-
-    this.broadcast({ type: "user-left", userId: connection.id });
-    this.persistState();
   }
 
   // --- Message handling ---
 
-  onMessage(message: string, sender: Party.Connection) {
+  async onMessage(message: string, sender: Party.Connection) {
     let msg: ClientMessage;
     try {
-      msg = JSON.parse(message as string);
+      msg = JSON.parse(message);
     } catch {
       this.send(sender, { type: "error", message: "Invalid message format" });
       return;
@@ -132,33 +257,28 @@ export default class DeadSyncServer implements Party.Server {
 
     switch (msg.type) {
       case "join":
-        this.handleJoin(sender, msg.name, msg.role);
+        await this.handleJoin(sender, msg.name, msg.role, msg.reconnecting);
         break;
-
       case "set-song":
-        this.handleSetSong(sender, msg.index);
+        await this.handleSetSong(sender, msg.index);
         break;
-
       case "browse":
         this.handleBrowse(sender, msg.index);
         break;
-
       case "go-live":
         this.handleGoLive(sender);
         break;
-
-      case "request-state":
-        this.send(sender, { type: "state", state: this.getState() });
+      case "request-state": {
+        const state = await this.getState();
+        this.send(sender, { type: "state", state });
         break;
-
+      }
       case "set-setlist":
-        this.handleSetSetlist(sender, msg.setlist);
+        await this.handleSetSetlist(sender, msg.setlist);
         break;
-
       case "transfer-lead":
-        this.handleTransferLead(sender, msg.userId);
+        await this.handleTransferLead(sender, msg.userId);
         break;
-
       default:
         this.send(sender, { type: "error", message: "Unknown message type" });
     }
@@ -166,10 +286,45 @@ export default class DeadSyncServer implements Party.Server {
 
   // --- Handlers ---
 
-  handleJoin(connection: Party.Connection, name: string, requestedRole: string) {
-    // If someone wants to be leader and there's already a leader, make them follower
-    let role: "leader" | "follower" = requestedRole as "leader" | "follower";
-    if (role === "leader" && this.leaderId && this.leaderId !== connection.id) {
+  async handleJoin(
+    connection: Party.Connection,
+    name: string,
+    requestedRole: UserRole,
+    reconnecting?: boolean,
+  ) {
+    // Check if this is a reconnecting leader reclaiming their role
+    const disconnectedLeader =
+      await this.room.storage.get<StoredDisconnectedLeader>(
+        "disconnectedLeader",
+      );
+
+    let role: UserRole = requestedRole;
+    let reclaimingLeadership = false;
+
+    if (disconnectedLeader && name === disconnectedLeader.name) {
+      // Original leader reconnected — reclaim leadership
+      reclaimingLeadership = true;
+      role = "leader";
+
+      // Cancel the grace period alarm
+      await this.room.storage.deleteAlarm();
+      await this.room.storage.delete("disconnectedLeader");
+      this.pendingLeaderDisconnect = null;
+
+      // Demote current leader if someone was promoted
+      if (this.leaderId && this.leaderId !== connection.id) {
+        const currentLeader = this.users.get(this.leaderId);
+        if (currentLeader) {
+          currentLeader.role = "follower";
+          this.users.set(this.leaderId, currentLeader);
+        }
+      }
+    } else if (
+      role === "leader" &&
+      this.leaderId &&
+      this.leaderId !== connection.id
+    ) {
+      // Someone else wants leader but there's already one — make them follower
       role = "follower";
     }
 
@@ -179,6 +334,7 @@ export default class DeadSyncServer implements Party.Server {
       role,
       isLive: true,
       currentIndex: this.liveIndex,
+      joinedAt: Date.now(),
     };
 
     this.users.set(connection.id, user);
@@ -187,17 +343,26 @@ export default class DeadSyncServer implements Party.Server {
       this.leaderId = connection.id;
     }
 
-    // Tell everyone about the new user
+    // Broadcast to others
     this.broadcast({ type: "user-joined", user }, [connection.id]);
 
-    // Send full state to the joiner
-    this.send(connection, { type: "state", state: this.getState() });
+    // If leadership was reclaimed, tell everyone
+    if (reclaimingLeadership) {
+      this.broadcast({
+        type: "leader-changed",
+        leaderId: connection.id,
+        leaderName: name,
+      });
+    }
 
-    this.persistState();
+    // Send full state to the joiner
+    const state = await this.getState();
+    this.send(connection, { type: "state", state });
+
+    await this.persistMeta();
   }
 
-  handleSetSong(connection: Party.Connection, index: number) {
-    // Only the leader can set the live song
+  async handleSetSong(connection: Party.Connection, index: number) {
     if (connection.id !== this.leaderId) {
       this.send(connection, {
         type: "error",
@@ -206,8 +371,11 @@ export default class DeadSyncServer implements Party.Server {
       return;
     }
 
-    if (index < 0 || index >= this.setlist.songs.length) {
-      this.send(connection, { type: "error", message: "Song index out of range" });
+    if (index < 0 || index >= this.setlistInfo.songCount) {
+      this.send(connection, {
+        type: "error",
+        message: "Song index out of range",
+      });
       return;
     }
 
@@ -220,14 +388,13 @@ export default class DeadSyncServer implements Party.Server {
       this.users.set(connection.id, leader);
     }
 
-    // Broadcast to ALL (including leader for confirmation)
     this.broadcast({
       type: "song-changed",
       index,
       leaderId: connection.id,
     });
 
-    this.persistState();
+    await this.persistMeta();
   }
 
   handleBrowse(connection: Party.Connection, index: number) {
@@ -238,7 +405,6 @@ export default class DeadSyncServer implements Party.Server {
     user.isLive = index === this.liveIndex;
     this.users.set(connection.id, user);
 
-    // Let others know this user is browsing
     this.broadcast({ type: "user-updated", user });
   }
 
@@ -253,8 +419,7 @@ export default class DeadSyncServer implements Party.Server {
     this.broadcast({ type: "user-updated", user });
   }
 
-  handleSetSetlist(connection: Party.Connection, setlist: Setlist) {
-    // Only the leader can change the setlist
+  async handleSetSetlist(connection: Party.Connection, setlist: Setlist) {
     if (connection.id !== this.leaderId) {
       this.send(connection, {
         type: "error",
@@ -263,7 +428,7 @@ export default class DeadSyncServer implements Party.Server {
       return;
     }
 
-    this.setlist = setlist;
+    await this.persistSetlist(setlist);
     this.liveIndex = 0;
 
     // Reset all users to the first song
@@ -273,12 +438,12 @@ export default class DeadSyncServer implements Party.Server {
       this.users.set(id, user);
     }
 
-    // Full state sync for everyone
-    this.broadcast({ type: "state", state: this.getState() });
-    this.persistState();
+    const state = await this.getState();
+    this.broadcast({ type: "state", state });
+    await this.persistMeta();
   }
 
-  handleTransferLead(connection: Party.Connection, newLeaderId: string) {
+  async handleTransferLead(connection: Party.Connection, newLeaderId: string) {
     if (connection.id !== this.leaderId) {
       this.send(connection, {
         type: "error",
@@ -311,25 +476,29 @@ export default class DeadSyncServer implements Party.Server {
       leaderName: newLeader.name,
     });
 
-    this.persistState();
+    await this.persistMeta();
   }
 
   // --- HTTP endpoint for session info (QR code target) ---
 
   async onRequest(req: Party.Request) {
     if (req.method === "GET") {
+      const currentSongIndex = this.liveIndex;
+      const currentSong = await this.room.storage.get<Song>(
+        `song:${currentSongIndex}`,
+      );
       return new Response(
         JSON.stringify({
           sessionCode: this.sessionCode,
           roomId: this.room.id,
-          songCount: this.setlist.songs.length,
-          setlistName: this.setlist.name,
+          songCount: this.setlistInfo.songCount,
+          setlistName: this.setlistInfo.name,
           userCount: this.users.size,
-          currentSong: this.setlist.songs[this.liveIndex]?.title ?? null,
+          currentSong: currentSong?.title ?? null,
         }),
         {
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
     }
 
