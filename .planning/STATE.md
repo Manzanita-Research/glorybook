@@ -33,5 +33,5 @@ Decisions logged in PROJECT.md Key Decisions table. Full history in milestones/v
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: v1.0 milestone archived
+Stopped at: Completed quick-1 (removed seed files, captured missing requirements)
 Next step: `/gsd:new-milestone`
