@@ -237,4 +237,49 @@ describe("SessionScreen", () => {
     // Bobby appears in presence list (Jerry appears in both header and presence, so use Bobby to confirm)
     expect(screen.getAllByText(/Bobby/).length).toBeGreaterThanOrEqual(1);
   });
+
+  // --- Presence dot colors (UAT Test 9) ---
+
+  it("shows green dot for live user and gold dot for browsing user in drawer (UAT Test 9)", async () => {
+    // Jerry is leader + live (green dot), Bobby is follower + browsing (gold dot)
+    mockReturnValue = {
+      ...defaultMockReturn,
+      sessionState: {
+        ...defaultMockReturn.sessionState!,
+        leaderId: "conn-1",
+        users: [
+          { id: "conn-1", name: "Jerry", role: "leader" as const, isLive: true, currentIndex: 0, joinedAt: 1000 },
+          { id: "conn-2", name: "Bobby", role: "follower" as const, isLive: false, currentIndex: 2, joinedAt: 2000 },
+        ],
+      },
+      isLeader: true,
+      actions: mockActions,
+    };
+
+    render(<SessionScreen name="Jerry" role="leader" code="scarlet-042" />);
+    const user = userEvent.setup();
+
+    // Open the setlist drawer
+    await user.click(screen.getByLabelText("Open setlist"));
+
+    // Verify presence dots — Jerry should have green (Live), Bobby should have gold (Browsing)
+    const liveDots = screen.getAllByLabelText("Live");
+    expect(liveDots.length).toBeGreaterThanOrEqual(1);
+    liveDots.forEach((dot) => {
+      expect(dot.className).toContain("bg-status-connected");
+    });
+
+    const browsingDots = screen.getAllByLabelText("Browsing");
+    expect(browsingDots.length).toBeGreaterThanOrEqual(1);
+    browsingDots.forEach((dot) => {
+      expect(dot.className).toContain("bg-accent-gold");
+    });
+
+    // Verify both names appear in the drawer's presence list
+    expect(screen.getAllByText(/Jerry/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/Bobby/).length).toBeGreaterThanOrEqual(1);
+
+    // Verify leader label shows for Jerry
+    expect(screen.getByText("(lead)")).toBeInTheDocument();
+  });
 });
