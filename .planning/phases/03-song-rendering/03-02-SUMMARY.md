@@ -37,6 +37,7 @@ decisions:
   - "User list removed from SessionScreen — deferred to Phase 5 (PRES-01/02) with proper presence indicators"
   - "leaderDisconnected notice removed — Phase 5 adds a proper status bar placement"
   - "SongHeader has no sticky positioning — sits outside scroll container in flex layout naturally"
+requirements-completed: [SONG-03, SONG-04, SONG-05]
 metrics:
   duration: "~8 minutes"
   completed: "2026-02-24"

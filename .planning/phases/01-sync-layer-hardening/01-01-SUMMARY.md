@@ -1,3 +1,9 @@
+---
+phase: 01-sync-layer-hardening
+plan: "01"
+requirements-completed: []
+---
+
 # Plan 01-01 Summary: Protocol Redesign
 
 **Status:** Complete
