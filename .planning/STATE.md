@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 2 of 6 (App Shell)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-02-24 — Phase 1 complete
+Plan: 1 of 2 in current phase
+Status: Executing (Plan 02-01 complete, Plan 02-02 next)
+Last activity: 2026-02-24 — Plan 02-01 complete
 
-Progress: [█░░░░░░░░░] 17%
+Progress: [██░░░░░░░░] 25%
 
 ## Performance Metrics
 
@@ -53,8 +53,8 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-- Upgrade React 18 -> 19, add Tailwind v4 (Phase 2)
-- Upgrade partysocket 1.0.1 -> 1.1.16 (Phase 2)
+- ~~Upgrade React 18 -> 19, add Tailwind v4~~ (Done in 02-01)
+- ~~Upgrade partysocket 1.0.1 -> 1.1.16~~ (Done in 02-01)
 - Manual smoke test: partykit dev + two browser tabs syncing (Phase 2, needs UI)
 - Test hibernation + storage sharding against actual Cloudflare deploy (future)
 
@@ -66,5 +66,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Phase 2 context gathered, ready to plan
-Resume file: .planning/phases/02-app-shell/02-CONTEXT.md
+Stopped at: Plan 02-01 complete, executing Plan 02-02
+Resume file: .planning/phases/02-app-shell/02-01-SUMMARY.md
