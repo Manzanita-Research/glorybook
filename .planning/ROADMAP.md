@@ -110,7 +110,10 @@ Plans:
   1. The leader's screen shows a QR code that another musician can scan to join the session
   2. Session codes are generated from Dead song names (e.g., `scarlet-042`, `ripple-817`)
   3. Scanning the QR code on an iPhone or iPad Safari opens the app and joins the correct session
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 06-01-PLAN.md — QR code share panel for leader (SESS-01, SESS-02)
+- [ ] 06-02-PLAN.md — URL-based QR join flow with session code pre-fill (JOIN-04)
 
 ### Phase 7: Leader Disconnect UI
 **Goal**: Followers see a visible indicator when the leader disconnects, showing the grace period before leader promotion
