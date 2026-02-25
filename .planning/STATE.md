@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** When the leader advances to the next song, every connected musician sees the chord chart instantly — and anyone who browsed ahead can snap back to live with one tap.
-**Current focus:** Phase 6 — Session Entry and Polish
+**Current focus:** Phase 7 — Leader Disconnect UI
 
 ## Current Position
 
-Phase: 5 of 6 (Follower UX) — COMPLETE
-Plan: 3 of 3 in current phase
-Status: Phase 5 complete (gap closure plan 03 done)
-Last activity: 2026-02-25 — Plan 05-03 complete (presence fix)
+Phase: 7 of 7 (Leader Disconnect UI) — COMPLETE
+Plan: 1 of 1 in current phase
+Status: Phase 7 complete (leader disconnect banner)
+Last activity: 2026-02-25 — Plan 07-01 complete (leader disconnect banner)
 
-Progress: [████████░░] 83%
+Progress: [█████████░] 93%
 
 ## Performance Metrics
 
@@ -39,6 +39,7 @@ Progress: [████████░░] 83%
 | Phase 04 P01 | 2min | 2 tasks | 4 files |
 | Phase 04 P02 | 2min | 2 tasks | 6 files |
 | Phase 05 P03 | 1min | 2 tasks | 3 files |
+| Phase 07 P01 | 1min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -76,5 +77,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 05-03-PLAN.md (presence list fix)
-Resume file: .planning/phases/05-follower-ux/05-03-SUMMARY.md
+Stopped at: Completed 07-01-PLAN.md (leader disconnect banner)
+Resume file: .planning/phases/07-leader-disconnect-ui/07-01-SUMMARY.md
