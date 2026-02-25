@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDeadSync } from "../use-deadsync";
 import type { UserRole } from "../../shared/protocol";
+import { ChordChart } from "./ChordChart";
 
 interface SessionScreenProps {
   name: string;
@@ -12,9 +13,7 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
   const {
     connected,
     sessionState,
-    myUser,
     isLeader,
-    leaderDisconnected,
     actions,
   } = useDeadSync({
     host: window.location.host,
@@ -27,17 +26,19 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const users = sessionState?.users ?? [];
+  const currentSong = sessionState?.setlist.songs[sessionState.liveIndex];
+  const total = sessionState?.setlist.songs.length ?? 0;
+  const position = (sessionState?.liveIndex ?? 0) + 1;
 
   return (
-    <div className="min-h-dvh bg-surface text-text-primary safe-area-padding p-4">
-      {/* Header area */}
-      <div className="flex items-center justify-between mb-6">
+    <div className="h-dvh bg-surface text-text-primary safe-area-padding flex flex-col">
+      {/* Session info header — compact, non-growing */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
         <div>
-          <h2 className="text-2xl font-bold text-accent-gold tracking-tight">
+          <h2 className="text-lg font-bold text-accent-gold tracking-tight leading-tight">
             {code}
           </h2>
-          <p className="text-text-secondary text-sm">
+          <p className="text-text-secondary text-sm leading-tight">
             {name} &middot;{" "}
             <span className="capitalize">
               {isLeader ? "leader" : role}
@@ -63,50 +64,19 @@ export function SessionScreen({ name, role, code }: SessionScreenProps) {
         </div>
       </div>
 
-      {/* Leader disconnected notice */}
-      {leaderDisconnected && (
-        <p className="text-text-muted text-sm mb-4">
-          Leader disconnected. Waiting for reconnect...
-        </p>
-      )}
-
-      {/* Connected users */}
-      <div className="space-y-2">
-        <h3 className="text-sm text-text-secondary font-medium uppercase tracking-wider">
-          In session
-        </h3>
-        {users.length === 0 ? (
-          <p className="text-text-muted text-sm">Connecting...</p>
+      {/* Chord chart — fills remaining viewport, owns its own scroll */}
+      <div className="flex-1 min-h-0">
+        {currentSong ? (
+          <ChordChart
+            song={currentSong}
+            position={position}
+            total={total}
+          />
         ) : (
-          <ul className="space-y-1">
-            {users.map((user) => (
-              <li
-                key={user.id}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-raised min-h-[44px]"
-              >
-                <span className="text-text-primary">
-                  {user.name}
-                  {user.id === myUser?.id && (
-                    <span className="text-text-muted ml-1">(you)</span>
-                  )}
-                </span>
-                <span className="text-text-muted text-sm capitalize">
-                  {user.role}
-                </span>
-                {user.role === "leader" && (
-                  <span className="text-accent-gold text-sm" aria-label="Leader">
-                    &#9733;
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
+          <div className="mt-8 text-center text-text-muted text-sm">
+            <p>Waiting for setlist...</p>
+          </div>
         )}
-      </div>
-
-      {/* Placeholder for setlist viewer (Phase 3) */}
-      <div className="mt-8 text-center text-text-muted text-sm">
-        <p>Setlist viewer coming soon.</p>
       </div>
     </div>
   );

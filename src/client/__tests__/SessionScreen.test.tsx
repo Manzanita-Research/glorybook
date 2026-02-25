@@ -80,10 +80,10 @@ describe("SessionScreen", () => {
     expect(indicator).toHaveAttribute("aria-label", "Disconnected");
   });
 
-  it("renders connected users list", () => {
+  it("renders current user name in session header", () => {
     render(<SessionScreen name="Jerry" role="follower" code="scarlet-042" />);
-    expect(screen.getByText("Jerry")).toBeInTheDocument();
-    expect(screen.getByText("Bobby")).toBeInTheDocument();
+    // Name appears in the compact session header row (Phase 5 will add full user list)
+    expect(screen.getByText(/Jerry/)).toBeInTheDocument();
   });
 
   it("calls actions.join on mount", () => {
