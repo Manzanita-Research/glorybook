@@ -98,6 +98,18 @@ describe("JoinScreen", () => {
     expect(localStorage.getItem("glory-name")).toBe("Jerry");
   });
 
+  // --- initialCode prop tests ---
+
+  it("pre-fills session code from initialCode prop", () => {
+    render(<JoinScreen onJoin={mockOnJoin} initialCode="scarlet-042" />);
+    expect(screen.getByLabelText(/session code/i)).toHaveValue("scarlet-042");
+  });
+
+  it("renders empty session code when no initialCode", () => {
+    render(<JoinScreen onJoin={mockOnJoin} />);
+    expect(screen.getByLabelText(/session code/i)).toHaveValue("");
+  });
+
   it("defaults role to follower", async () => {
     const user = userEvent.setup();
     render(<JoinScreen onJoin={mockOnJoin} />);
