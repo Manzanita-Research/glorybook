@@ -143,5 +143,16 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 6. Session Entry and Polish | 0/TBD | Not started | - |
 | 7. Leader Disconnect UI | 0/1 | Complete    | 2026-02-25 |
 
+### Phase 8: clean up tech debt
+
+**Goal:** Zero TypeScript errors, consistent planning documentation, and clean import hygiene across the codebase
+**Depends on:** Phase 7
+**Requirements:** tech-debt
+**Plans:** 2 plans
+
+Plans:
+- [ ] 08-01-PLAN.md — Code fixes: TypeScript errors, import path, test-only export docs
+- [ ] 08-02-PLAN.md — Documentation fixes: SUMMARY frontmatter, Phase 1 VERIFICATION, deferred items
+
 ---
 *Roadmap created: 2026-02-24*
