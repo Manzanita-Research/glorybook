@@ -11,7 +11,7 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 
 Phase: v1.0 complete (8 phases, 18 plans)
 Status: Milestone shipped
-Last activity: 2026-02-25 — v1.0 MVP archived
+Last activity: 2026-02-25 - Completed quick task 1: Remove idea.md and next.md after capturing unplanned items in planning files
 
 Progress: [██████████] 100%
 
@@ -29,6 +29,12 @@ Decisions logged in PROJECT.md Key Decisions table. Full history in milestones/v
 ### Blockers/Concerns
 
 (None — milestone complete)
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 1 | Remove idea.md and next.md after capturing unplanned items in planning files | 2026-02-25 | 5ed37f8 | [1-remove-idea-md-and-next-md-after-capturi](./quick/1-remove-idea-md-and-next-md-after-capturi/) |
 
 ## Session Continuity
 
