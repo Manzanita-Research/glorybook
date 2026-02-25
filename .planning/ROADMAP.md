@@ -122,7 +122,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. App Shell | 2/2 | Complete | 2026-02-24 |
 | 3. Song Rendering | 2/2 | Complete    | 2026-02-25 |
 | 4. Navigation and Leader Controls | 2/2 | Complete | 2026-02-25 |
-| 5. Follower UX | 2/2 | Complete | 2026-02-25 |
+| 5. Follower UX | 2/2 | Complete    | 2026-02-25 |
 | 6. Session Entry and Polish | 0/TBD | Not started | - |
 
 ---
