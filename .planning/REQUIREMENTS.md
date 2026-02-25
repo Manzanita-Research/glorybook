@@ -41,7 +41,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **LEAD-01**: Leader can advance to the next song with one tap
 - [x] **LEAD-02**: Leader can go back to the previous song with one tap
 - [x] **LEAD-03**: Leader's role is clearly indicated on screen
-- [ ] **LEAD-04**: Leader can transfer leadership to another connected user
+- [x] **LEAD-04**: Leader can transfer leadership to another connected user
 
 ### Follower UX
 
@@ -52,9 +52,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Setlist & Presence
 
-- [ ] **LIST-01**: User can see the full setlist in a sidebar
-- [ ] **LIST-02**: Current live song is highlighted in the setlist
-- [ ] **LIST-03**: User can tap a song in the sidebar to browse to it
+- [x] **LIST-01**: User can see the full setlist in a sidebar
+- [x] **LIST-02**: Current live song is highlighted in the setlist
+- [x] **LIST-03**: User can tap a song in the sidebar to browse to it
 - [ ] **PRES-01**: User can see who is connected to the session
 - [ ] **PRES-02**: User can see who is live vs. browsing a different song
 
@@ -116,10 +116,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LEAD-01 | Phase 4 | Complete |
 | LEAD-02 | Phase 4 | Complete |
 | LEAD-03 | Phase 4 | Complete |
-| LEAD-04 | Phase 4 | Pending |
-| LIST-01 | Phase 4 | Pending |
-| LIST-02 | Phase 4 | Pending |
-| LIST-03 | Phase 4 | Pending |
+| LEAD-04 | Phase 4 | Complete |
+| LIST-01 | Phase 4 | Complete |
+| LIST-02 | Phase 4 | Complete |
+| LIST-03 | Phase 4 | Complete |
 | FOLL-01 | Phase 5 | Pending |
 | FOLL-02 | Phase 5 | Pending |
 | FOLL-03 | Phase 5 | Pending |
