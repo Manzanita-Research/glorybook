@@ -6,7 +6,6 @@
   "compatibilityDate": "2026-02-24",
   "serve": {
     "path": "dist",
-    "build": "npx vite build",
     "singlePageApp": true
   }
 }
