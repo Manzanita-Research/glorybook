@@ -1,4 +1,4 @@
-import type { ChordSegment } from "../../client/lib/chord-tokenizer";
+import type { ChordSegment } from "../lib/chord-tokenizer";
 
 interface ChordLineProps {
   segments: ChordSegment[];

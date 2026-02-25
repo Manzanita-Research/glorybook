@@ -37,7 +37,7 @@ function isSection(line: string): boolean {
   return /^[A-Z][A-Z\s\/\-]+:/.test(line);
 }
 
-/** True if line is an annotation — starts with >, contains →, or is fully wrapped in parens */
+/** @internal Exported for unit testing — called internally by tokenizeLine */
 export function isAnnotation(line: string): boolean {
   if (line.startsWith(">")) return true;
   if (line.includes("→")) return true;
@@ -125,6 +125,7 @@ function extractSegments(line: string): ChordSegment[] {
  * 5. chord-lyric — contains [ bracket
  * 6. plain      — everything else
  */
+/** @internal Exported for unit testing — production code uses tokenizeChart */
 export function tokenizeLine(line: string): ParsedLine {
   // 1. Blank
   if (line.trim() === "") {
