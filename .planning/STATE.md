@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** When the leader advances to the next song, every connected musician sees the chord chart instantly — and anyone who browsed ahead can snap back to live with one tap.
-**Current focus:** Phase 3 — Song Rendering
+**Current focus:** Phase 6 — Session Entry and Polish
 
 ## Current Position
 
-Phase: 3 of 6 (Song Rendering)
-Plan: 2 of 3 in current phase
-Status: Plan 03-02 complete
-Last activity: 2026-02-24 — Plan 03-02 complete
+Phase: 5 of 6 (Follower UX) — COMPLETE
+Plan: 2 of 2 in current phase
+Status: Phase 5 complete
+Last activity: 2026-02-25 — Phase 5 complete
 
-Progress: [█████░░░░░] 47%
+Progress: [████████░░] 83%
 
 ## Performance Metrics
 
@@ -73,6 +73,6 @@ Recent decisions affecting current work:
 
 ## Session Continuity
 
-Last session: 2026-02-24
-Stopped at: Completed 03-song-rendering plan 03-02 (chord chart rendering components)
-Resume file: .planning/phases/03-song-rendering/03-02-SUMMARY.md
+Last session: 2026-02-25
+Stopped at: Completed Phase 5 (Follower UX) — all 6 requirements met
+Resume file: .planning/phases/05-follower-ux/05-02-SUMMARY.md

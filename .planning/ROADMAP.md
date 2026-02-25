@@ -15,8 +15,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Sync Layer Hardening** - Fix the existing server and hook bugs before building UI on top of them (completed 2026-02-24)
 - [x] **Phase 2: App Shell** - Entry point, context architecture, join screen, and iOS reliability (completed 2026-02-24)
 - [x] **Phase 3: Song Rendering** - Chord chart display with gold/blue/purple highlighting (completed 2026-02-25)
-- [ ] **Phase 4: Navigation and Leader Controls** - Full sync loop exercised end-to-end
-- [ ] **Phase 5: Follower UX** - GO LIVE snap-back, presence indicators, and connection status
+- [x] **Phase 4: Navigation and Leader Controls** - Full sync loop exercised end-to-end (completed 2026-02-25)
+- [x] **Phase 5: Follower UX** - GO LIVE snap-back, presence indicators, and connection status (completed 2026-02-25)
 - [ ] **Phase 6: Session Entry and Polish** - QR codes, Dead song session codes, iPad touch polish
 
 ## Phase Details
@@ -97,8 +97,8 @@ Plans:
   6. The sidebar or presence bar shows who is on the live song vs. browsing elsewhere
 **Plans**: 2 plans
 Plans:
-- [ ] 05-01-PLAN.md — GO LIVE banner, browse-away border, pulse effects, slide-left animation
-- [ ] 05-02-PLAN.md — Presence indicators in setlist drawer
+- [x] 05-01-PLAN.md — GO LIVE banner, browse-away border, pulse effects, slide-left animation
+- [x] 05-02-PLAN.md — Presence indicators in setlist drawer
 
 ### Phase 6: Session Entry and Polish
 **Goal**: The app is ready for a first gig — QR join works, session codes are on-brand, iPad use is smooth
@@ -120,8 +120,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Sync Layer Hardening | 4/4 | Complete | 2026-02-24 |
 | 2. App Shell | 2/2 | Complete | 2026-02-24 |
 | 3. Song Rendering | 2/2 | Complete    | 2026-02-25 |
-| 4. Navigation and Leader Controls | 0/2 | Planned | - |
-| 5. Follower UX | 0/2 | Planned | - |
+| 4. Navigation and Leader Controls | 2/2 | Complete | 2026-02-25 |
+| 5. Follower UX | 2/2 | Complete | 2026-02-25 |
 | 6. Session Entry and Polish | 0/TBD | Not started | - |
 
 ---
