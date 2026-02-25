@@ -95,10 +95,11 @@ Plans:
   4. Tapping the banner snaps the follower back to the leader's current song
   5. Every connected musician can see who else is in the session
   6. The sidebar or presence bar shows who is on the live song vs. browsing elsewhere
-**Plans**: 2 plans
+**Plans**: 3 plans
 Plans:
 - [x] 05-01-PLAN.md — GO LIVE banner, browse-away border, pulse effects, slide-left animation
 - [x] 05-02-PLAN.md — Presence indicators in setlist drawer
+- [ ] 05-03-PLAN.md — Gap closure: fix leader missing from presence list, verify presence dots
 
 ### Phase 6: Session Entry and Polish
 **Goal**: The app is ready for a first gig — QR join works, session codes are on-brand, iPad use is smooth
